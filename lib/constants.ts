@@ -13,6 +13,9 @@ export const STORAGE_KEYS = {
   LAST_INPUT: "jsonflow:lastInput",
   THEME: "jsonflow:theme",
   INDENTATION: "jsonflow:indentation",
+  COMPARE_LEFT: "jsonflow:compareLeft",
+  COMPARE_RIGHT: "jsonflow:compareRight",
+  COMPARE_OPTIONS: "jsonflow:compareOptions",
 } as const;
 
 export const MAX_JSON_SIZE = 10 * 1024 * 1024; // 10MB

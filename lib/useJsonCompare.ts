@@ -1,9 +1,10 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   compareJson,
   type CompareResult,
   type CompareOptions,
 } from "@/lib/json-compare";
+import { STORAGE_KEYS } from "@/lib/constants";
 
 export interface JsonCompareState {
   leftJson: string;
@@ -31,13 +32,54 @@ export function useJsonCompare(): JsonCompareState {
   const [error, setError] = useState<string | null>(null);
   const [leftError, setLeftError] = useState<string | null>(null);
   const [rightError, setRightError] = useState<string | null>(null);
-  const [options, setOptionsState] = useState<CompareOptions>({
-    ignoreKeyOrder: true,
-    ignoreWhitespace: true,
-    ignoreCase: false,
-    compareArraysByValue: true,
-    sortKeys: false,
+  const [options, setOptionsState] = useState<CompareOptions>(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem(STORAGE_KEYS.COMPARE_OPTIONS);
+      return stored ? JSON.parse(stored) : {
+        ignoreKeyOrder: true,
+        ignoreWhitespace: true,
+        ignoreCase: false,
+        compareArraysByValue: true,
+        sortKeys: false,
+      };
+    }
+    return {
+      ignoreKeyOrder: true,
+      ignoreWhitespace: true,
+      ignoreCase: false,
+      compareArraysByValue: true,
+      sortKeys: false,
+    };
   });
+
+  // Load saved JSON from localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedLeft = localStorage.getItem(STORAGE_KEYS.COMPARE_LEFT);
+      const savedRight = localStorage.getItem(STORAGE_KEYS.COMPARE_RIGHT);
+      if (savedLeft) setLeftJson(savedLeft);
+      if (savedRight) setRightJson(savedRight);
+    }
+  }, []);
+
+  // Save options to localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(STORAGE_KEYS.COMPARE_OPTIONS, JSON.stringify(options));
+    }
+  }, [options]);
+
+  // Save JSON to localStorage when changed
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (leftJson.trim()) {
+        localStorage.setItem(STORAGE_KEYS.COMPARE_LEFT, leftJson);
+      }
+      if (rightJson.trim()) {
+        localStorage.setItem(STORAGE_KEYS.COMPARE_RIGHT, rightJson);
+      }
+    }
+  }, [leftJson, rightJson]);
 
   const setOptions = useCallback((newOptions: Partial<CompareOptions>) => {
     setOptionsState((prev) => ({ ...prev, ...newOptions }));
@@ -94,6 +136,10 @@ export function useJsonCompare(): JsonCompareState {
     setError(null);
     setLeftError(null);
     setRightError(null);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(STORAGE_KEYS.COMPARE_LEFT);
+      localStorage.removeItem(STORAGE_KEYS.COMPARE_RIGHT);
+    }
   }, []);
 
   const handleFormatLeft = useCallback(() => {
