@@ -56,8 +56,8 @@ export function FAQs({ faqs, title = "Frequently Asked Questions" }: FAQsProps) 
         {title}
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {faqs.map(({ question, answer }) => (
-          <FAQItem key={question} question={question} answer={answer} />
+        {faqs.map((faq, index) => (
+          <FAQItem key={`${faq.question}-${index}`} question={faq.question} answer={faq.answer} />
         ))}
       </div>
     </div>

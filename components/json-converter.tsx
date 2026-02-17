@@ -7,7 +7,7 @@ import { JsonToolbar } from "@/components/json-toolbar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useJsonFormatter } from "@/lib/hooks";
 import { Braces, Zap, FileJson, Shield, Trees, FileDown, Copy, Wand2, Upload } from "lucide-react";
-import { KEYBOARD_SHORTCUTS } from "@/lib/constants";
+import { KEYBOARD_SHORTCUTS, FORMATTER_FEATURES, COMMON_FAQS } from "@/lib/constants";
 import type { ConversionType } from "@/lib/json-conversions";
 import { KeyboardShortcuts } from "@/components/keyboard-shortcuts";
 import { Features } from "@/components/features";
@@ -168,22 +168,18 @@ const shortcuts = [
   { action: "Download", shortcut: KEYBOARD_SHORTCUTS.DOWNLOAD },
 ];
 
-const features = [
-  { title: "Real-time Validation", description: "Instantly detect JSON errors with precise line numbers and clear error messages.", icon: Zap },
-  { title: "Format & Beautify", description: "Pretty-print JSON with configurable indentation (2/4/8 spaces or tabs).", icon: Wand2 },
-  { title: "Minify JSON", description: "Compress JSON to single-line format for smaller file sizes.", icon: FileDown },
-  { title: "Tree View", description: "Navigate complex JSON structures with expandable/collapsible tree view.", icon: Trees },
-  { title: "Multi-format Export", description: "Convert JSON to YAML, XML, CSV, or plain text instantly.", icon: FileJson },
-  { title: "One-click Copy", description: "Copy formatted JSON to clipboard with a single click.", icon: Copy },
-  { title: "Drag & Drop", description: "Upload JSON files by dragging and dropping directly into the editor.", icon: Upload },
-  { title: "100% Private", description: "All processing happens in your browser. Your JSON data never leaves your device.", icon: Shield },
-];
+const features = FORMATTER_FEATURES.map((f) => ({
+    ...f,
+    icon: {
+        "Real-time Validation": Zap,
+        "Format & Beautify": Wand2,
+        "Minify JSON": FileDown,
+        "Tree View": Trees,
+        "Multi-format Export": FileJson,
+        "One-click Copy": Copy,
+        "Drag & Drop": Upload,
+        "100% Private": Shield,
+    }[f.title],
+}));
 
-const faqs = [
-  { question: "Is my JSON data stored or sent to a server?", answer: "No. All JSON processing happens entirely in your browser using JavaScript. Your data never leaves your device and is never stored or logged." },
-  { question: "What is the maximum JSON file size supported?", answer: "JsonFlow can handle JSON files up to 10MB. For optimal performance, we recommend keeping files under 5MB for instant formatting and validation." },
-  { question: "Can I use JsonFlow offline?", answer: "Yes. Once the page is loaded, JsonFlow works completely offline. All formatting, validation, and conversion features are available without an internet connection." },
-  { question: "What formats can I convert JSON to?", answer: "You can convert JSON to YAML, XML, CSV (for arrays or objects), and plain text format. Each conversion maintains the data structure appropriately." },
-  { question: "How do I fix invalid JSON?", answer: "When JSON is invalid, the error message shows the line number and issue. Common fixes include adding missing commas, closing brackets, or quoting keys properly." },
-  { question: "Can I customize the indentation?", answer: "Yes. You can choose from 2 spaces, 4 spaces, 8 spaces, or tabs for indentation when formatting your JSON." },
-];
+const faqs = [...COMMON_FAQS];

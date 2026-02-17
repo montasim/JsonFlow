@@ -3,20 +3,17 @@
 import * as React from "react";
 import { JsonEditor } from "@/components/json-editor";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useJsonCompare } from "@/lib/useJsonCompare";
-import { PageHeader } from "@/components/layout";
 import { KeyboardShortcuts } from "@/components/keyboard-shortcuts";
 import { Features } from "@/components/features";
 import { FAQs } from "@/components/faqs";
-import { KEYBOARD_SHORTCUTS, COMPARE_SHORTCUTS } from "@/lib/constants";
+import { COMPARE_SHORTCUTS, COMPARE_FEATURES, COMPARE_FAQS } from "@/lib/constants";
 import {
   getDiffTypeColor,
   getDiffTypeLabel,
   type DiffNode,
 } from "@/lib/json-compare";
-import { JsonToolbar } from "@/components/json-toolbar";
-import { JsonTreeView } from "@/components/json-tree-view";
 import {
     Braces,
     GitCompare,
@@ -565,22 +562,18 @@ const shortcuts = [
   { action: "Clear All", shortcut: COMPARE_SHORTCUTS.CLEAR_ALL },
 ];
 
-const features = [
-  { title: "Deep Comparison", description: "Detect added, removed, modified, and type-changed keys in nested JSON structures.", icon: GitCompare },
-  { title: "Side-by-Side View", description: "Compare two JSON documents with synchronized editors for easy visual comparison.", icon: Files },
-  { title: "Real-time Validation", description: "Instant error detection with clear messages for invalid JSON input.", icon: Zap },
-  { title: "Smart Options", description: "Ignore key order, compare arrays by value, or sort keys for flexible comparison.", icon: Wand2 },
-  { title: "Diff Summary", description: "Get instant counts of added, removed, and modified keys at a glance.", icon: GitBranch },
-  { title: "Expandable Tree", description: "Navigate complex differences with collapsible tree view for nested objects.", icon: Braces },
-  { title: "Format First", description: "Format each JSON document independently before comparing for clean results.", icon: Wand2 },
-  { title: "100% Private", description: "All comparison happens in your browser. Your data never leaves your device.", icon: Shield },
-];
+const features = COMPARE_FEATURES.map((f) => ({
+  ...f,
+  icon: {
+    "Deep Comparison": GitCompare,
+    "Side-by-Side View": Files,
+    "Real-time Validation": Zap,
+    "Smart Options": Wand2,
+    "Diff Summary": GitBranch,
+    "Expandable Tree": Braces,
+    "Format First": Wand2,
+    "100% Private": Shield,
+  }[f.title],
+}));
 
-const faqs = [
-  { question: "How does JSON comparison work?", answer: "JSON Compare performs a deep structural comparison of two JSON documents, detecting added keys, removed keys, modified values, and type changes. It navigates through nested objects and arrays to find all differences." },
-  { question: "Can I compare large JSON files?", answer: "Yes, JSON Compare can handle JSON files up to 10MB. For optimal performance, we recommend keeping files under 5MB for instant comparison results." },
-  { question: "What does 'Ignore key order' do?", answer: "When enabled, the comparison treats objects with the same keys in different orders as equal. This is useful when key order doesn't matter in your use case." },
-  { question: "How are arrays compared?", answer: "With 'Compare arrays by value' enabled, arrays are compared element by element. Disabled, arrays are compared as whole values using string comparison." },
-  { question: "Is my JSON data stored or sent anywhere?", answer: "No. All JSON comparison happens entirely in your browser using JavaScript. Your data never leaves your device and is never stored or logged." },
-  { question: "What do the colors mean in the diff view?", answer: "Green indicates added keys, red shows removed keys, yellow highlights modified values, and purple indicates type changes (e.g., string to number)." },
-];
+const faqs = [...COMPARE_FAQS];
