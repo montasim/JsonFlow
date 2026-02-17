@@ -24,7 +24,7 @@ import {
     Zap,
     Files,
     Shield,
-    GitBranch, Trash2,
+    GitBranch, Trash2, AlertCircle, Check,
 } from "lucide-react";
 
 export function JsonCompare() {
