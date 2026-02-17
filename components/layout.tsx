@@ -1,5 +1,8 @@
+"use client";
+
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Github, Braces } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
@@ -27,6 +30,9 @@ export function Logo({ className, iconSize = "w-10 h-10", textSize = "text-2xl",
 import { ModeToggle } from "@/components/mode-toggle";
 
 export function Header() {
+    const pathname = usePathname();
+    const isComparePage = pathname === "/compare";
+
     return (
         <header className="fixed top-0 w-full z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
             <div className="container mx-auto px-2 md:px-4 h-20 flex items-center justify-between max-w-[1700px]">
@@ -36,6 +42,12 @@ export function Header() {
 
                 <div className="flex items-center gap-2">
                     <nav className="hidden md:flex items-center gap-1 mr-4">
+                        <Link
+                            href={isComparePage ? "/" : "/compare"}
+                            className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-all"
+                        >
+                            {isComparePage ? "Format" : "Compare"}
+                        </Link>
                         <Link
                             href="/contact"
                             className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-all"
@@ -122,7 +134,7 @@ export function PageHeader({
     className?: string;
 }) {
     return (
-        <div className={cn("flex flex-col items-center text-center space-y-4 mb-8", className)}>
+        <div className={cn("flex flex-col items-center text-center space-y-4 my-8", className)}>
             {Icon && (
                 <div className="inline-flex items-center justify-center p-2 bg-primary/10 rounded-2xl mb-2">
                     <Icon className="w-6 h-6 text-primary" />

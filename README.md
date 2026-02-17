@@ -11,8 +11,9 @@
 
 ## ✨ Features
 
+- **🔀 JSON Compare**: Compare two JSON documents and visualize differences (added, removed, modified, type changes)
 - **📝 Smart JSON Editor**: Monaco Editor with syntax highlighting, line numbers, auto-indentation, and bracket matching
-- **🎨 Format & Beautify**: Pretty-print JSON with configurable indentation (2/4 spaces or tabs)
+- **🎨 Format & Beautify**: Pretty-print JSON with configurable indentation (2/4/8 spaces or tabs)
 - **🗜️ Minify**: Compress JSON to single-line format
 - **✅ Real-time Validation**: Instant error detection with line number and error message
 - **📥 Copy & Download**: One-click copy to clipboard or download as `.json`/`.txt` file

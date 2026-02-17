@@ -11,6 +11,8 @@ export interface JsonEditorProps {
   readOnly?: boolean;
   className?: string;
   errorLine?: number | null;
+  diffLines?: number[];
+  diffSide?: "left" | "right";
   onFileUpload?: (file: File) => void;
   placeholder?: string;
 }
@@ -21,12 +23,15 @@ export function JsonEditor({
   readOnly = false,
   className,
   errorLine = null,
+  diffLines = [],
+  diffSide,
   onFileUpload,
   placeholder = "Paste your JSON here...",
 }: JsonEditorProps) {
   const { theme } = useTheme();
   const editorRef = React.useRef<Parameters<OnMount>[0]>(null);
   const [isDragging, setIsDragging] = React.useState(false);
+  const decorationsRef = React.useRef<string[]>([]);
 
   const handleEditorMount: OnMount = (editor) => {
     editorRef.current = editor;
@@ -40,6 +45,48 @@ export function JsonEditor({
         enableSchemaRequest: false,
       });
     }
+
+    // Apply diff decorations
+    if (diffLines.length > 0) {
+      applyDiffDecorations(editor, diffLines, diffSide);
+    }
+  };
+
+  React.useEffect(() => {
+    if (editorRef.current) {
+      if (diffLines.length > 0) {
+        applyDiffDecorations(editorRef.current, diffLines, diffSide);
+      } else {
+        // Clear decorations
+        editorRef.current.deltaDecorations(decorationsRef.current, []);
+        decorationsRef.current = [];
+      }
+    }
+  }, [diffLines, diffSide]);
+
+  const applyDiffDecorations = (editor: Parameters<OnMount>[0], lines: number[], side?: "left" | "right") => {
+    if (!editor || lines.length === 0) return;
+
+    const monaco = (window as any).monaco;
+    if (!monaco) return;
+
+    // Clear old decorations
+    if (decorationsRef.current && decorationsRef.current.length > 0) {
+      editor.deltaDecorations(decorationsRef.current, []);
+    }
+
+    const newDecorations = lines.map((line) => {
+      return {
+        range: new monaco.Range(line, 1, line, 1),
+        options: {
+          isWholeLine: true,
+          inlineClassName: side === "left" ? "diff-line-left" : "diff-line-right",
+        },
+      };
+    });
+
+    // Apply new decorations and store IDs
+    decorationsRef.current = editor.deltaDecorations([], newDecorations);
   };
 
   const handleDragOver = (e: React.DragEvent) => {

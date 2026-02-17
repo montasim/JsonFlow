@@ -146,6 +146,20 @@
     border: none !important;
     outline: none !important;
   }
+
+  /* Diff highlighting */
+  .diff-line-left {
+    background-color: rgb(239 68 68 / 0.3) !important;
+  }
+
+  .diff-line-right {
+    background-color: rgb(34 197 94 / 0.3) !important;
+  }
+
+  .monaco-editor .view-overlays .diff-line-left,
+  .monaco-editor .view-overlays .diff-line-right {
+    background-color: inherit !important;
+  }
 }
 
 @keyframes blob {

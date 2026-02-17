@@ -9,7 +9,9 @@ import { useJsonFormatter } from "@/lib/hooks";
 import { Braces, Zap, FileJson, Shield, Trees, FileDown, Copy, Wand2, Upload } from "lucide-react";
 import { KEYBOARD_SHORTCUTS } from "@/lib/constants";
 import type { ConversionType } from "@/lib/json-conversions";
-import { InfoGrid, InfoCard } from "@/components/layout";
+import { KeyboardShortcuts } from "@/components/keyboard-shortcuts";
+import { Features } from "@/components/features";
+import { FAQs } from "@/components/faqs";
 
 export function JsonConverter() {
   const {
@@ -147,111 +149,41 @@ export function JsonConverter() {
             </div>
 
             {/* Keyboard Shortcuts */}
-            <div className="rounded-xl border bg-card/50 backdrop-blur-sm p-6 mt-4 mb-2">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <ShortcutItem action="Format" shortcut={KEYBOARD_SHORTCUTS.FORMAT} />
-                    <ShortcutItem action="Minify" shortcut={KEYBOARD_SHORTCUTS.MINIFY} />
-                    <ShortcutItem action="Copy" shortcut={KEYBOARD_SHORTCUTS.COPY} />
-                    <ShortcutItem action="Download" shortcut={KEYBOARD_SHORTCUTS.DOWNLOAD} />
-                </div>
-            </div>
+            <KeyboardShortcuts shortcuts={shortcuts} />
         </div>
 
         {/* Features */}
-        <div className="">
-            <h3 className="text-2xl font-semibold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">Features</h3>
-            <InfoGrid cols={4}>
-                <InfoCard
-                    title="Real-time Validation"
-                    description="Instantly detect JSON errors with precise line numbers and clear error messages."
-                    icon={Zap}
-                />
-                <InfoCard
-                    title="Format & Beautify"
-                    description="Pretty-print JSON with configurable indentation (2/4/8 spaces or tabs)."
-                    icon={Wand2}
-                />
-                <InfoCard
-                    title="Minify JSON"
-                    description="Compress JSON to single-line format for smaller file sizes."
-                    icon={FileDown}
-                />
-                <InfoCard
-                    title="Tree View"
-                    description="Navigate complex JSON structures with expandable/collapsible tree view."
-                    icon={Trees}
-                />
-                <InfoCard
-                    title="Multi-format Export"
-                    description="Convert JSON to YAML, XML, CSV, or plain text instantly."
-                    icon={FileJson}
-                />
-                <InfoCard
-                    title="One-click Copy"
-                    description="Copy formatted JSON to clipboard with a single click."
-                    icon={Copy}
-                />
-                <InfoCard
-                    title="Drag & Drop"
-                    description="Upload JSON files by dragging and dropping directly into the editor."
-                    icon={Upload}
-                />
-                <InfoCard
-                    title="100% Private"
-                    description="All processing happens in your browser. Your JSON data never leaves your device."
-                    icon={Shield}
-                />
-            </InfoGrid>
-        </div>
+        <Features features={features} />
 
         {/* FAQ Section */}
-        <div className="mb-20">
-            <h3 className="text-2xl font-semibold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">Frequently Asked Questions</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <FAQItem
-                    question="Is my JSON data stored or sent to a server?"
-                    answer="No. All JSON processing happens entirely in your browser using JavaScript. Your data never leaves your device and is never stored or logged."
-                />
-                <FAQItem
-                    question="What is the maximum JSON file size supported?"
-                    answer="JsonFlow can handle JSON files up to 10MB. For optimal performance, we recommend keeping files under 5MB for instant formatting and validation."
-                />
-                <FAQItem
-                    question="Can I use JsonFlow offline?"
-                    answer="Yes. Once the page is loaded, JsonFlow works completely offline. All formatting, validation, and conversion features are available without an internet connection."
-                />
-                <FAQItem
-                    question="What formats can I convert JSON to?"
-                    answer="You can convert JSON to YAML, XML, CSV (for arrays or objects), and plain text format. Each conversion maintains the data structure appropriately."
-                />
-                <FAQItem
-                    question="How do I fix invalid JSON?"
-                    answer="When JSON is invalid, the error message shows the line number and issue. Common fixes include adding missing commas, closing brackets, or quoting keys properly."
-                />
-                <FAQItem
-                    question="Can I customize the indentation?"
-                    answer="Yes. You can choose from 2 spaces, 4 spaces, 8 spaces, or tabs for indentation when formatting your JSON."
-                />
-            </div>
-        </div>
+        <FAQs faqs={faqs} />
     </div>
   );
 }
 
-function ShortcutItem({ action, shortcut }: { action: string; shortcut: string }) {
-  return (
-    <div className="flex items-center gap-2">
-      <span className="text-sm text-muted-foreground">{action}</span>
-      <kbd className="px-2 py-1 text-xs font-mono bg-muted rounded border">{shortcut.replace("+", " + ")}</kbd>
-    </div>
-  );
-}
+const shortcuts = [
+  { action: "Format", shortcut: KEYBOARD_SHORTCUTS.FORMAT },
+  { action: "Minify", shortcut: KEYBOARD_SHORTCUTS.MINIFY },
+  { action: "Copy", shortcut: KEYBOARD_SHORTCUTS.COPY },
+  { action: "Download", shortcut: KEYBOARD_SHORTCUTS.DOWNLOAD },
+];
 
-function FAQItem({ question, answer }: { question: string; answer: string }) {
-  return (
-    <div className="rounded-xl border bg-card/50 backdrop-blur-sm p-5">
-      <h4 className="font-semibold mb-2 text-primary">{question}</h4>
-      <p className="text-sm text-muted-foreground leading-relaxed">{answer}</p>
-    </div>
-  );
-}
+const features = [
+  { title: "Real-time Validation", description: "Instantly detect JSON errors with precise line numbers and clear error messages.", icon: Zap },
+  { title: "Format & Beautify", description: "Pretty-print JSON with configurable indentation (2/4/8 spaces or tabs).", icon: Wand2 },
+  { title: "Minify JSON", description: "Compress JSON to single-line format for smaller file sizes.", icon: FileDown },
+  { title: "Tree View", description: "Navigate complex JSON structures with expandable/collapsible tree view.", icon: Trees },
+  { title: "Multi-format Export", description: "Convert JSON to YAML, XML, CSV, or plain text instantly.", icon: FileJson },
+  { title: "One-click Copy", description: "Copy formatted JSON to clipboard with a single click.", icon: Copy },
+  { title: "Drag & Drop", description: "Upload JSON files by dragging and dropping directly into the editor.", icon: Upload },
+  { title: "100% Private", description: "All processing happens in your browser. Your JSON data never leaves your device.", icon: Shield },
+];
+
+const faqs = [
+  { question: "Is my JSON data stored or sent to a server?", answer: "No. All JSON processing happens entirely in your browser using JavaScript. Your data never leaves your device and is never stored or logged." },
+  { question: "What is the maximum JSON file size supported?", answer: "JsonFlow can handle JSON files up to 10MB. For optimal performance, we recommend keeping files under 5MB for instant formatting and validation." },
+  { question: "Can I use JsonFlow offline?", answer: "Yes. Once the page is loaded, JsonFlow works completely offline. All formatting, validation, and conversion features are available without an internet connection." },
+  { question: "What formats can I convert JSON to?", answer: "You can convert JSON to YAML, XML, CSV (for arrays or objects), and plain text format. Each conversion maintains the data structure appropriately." },
+  { question: "How do I fix invalid JSON?", answer: "When JSON is invalid, the error message shows the line number and issue. Common fixes include adding missing commas, closing brackets, or quoting keys properly." },
+  { question: "Can I customize the indentation?", answer: "Yes. You can choose from 2 spaces, 4 spaces, 8 spaces, or tabs for indentation when formatting your JSON." },
+];

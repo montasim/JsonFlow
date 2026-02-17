@@ -2,8 +2,14 @@
 
 import { PageLayout, PageHeader, ContentCard, InfoGrid, InfoCard } from "@/components/layout";
 import { Mail, Github, Globe, MessageSquare } from "lucide-react";
+import { Features } from "@/components/features";
 
 export default function ContactPage() {
+    const features = [
+        { title: "Open Source", description: "JsonFlow is open source. Feel free to contribute, report issues, or suggest features on GitHub.", icon: Github },
+        { title: "Community Driven", description: "Built by developers, for developers. Your feedback helps make JsonFlow better for everyone.", icon: MessageSquare },
+    ];
+
     return (
         <PageLayout>
             <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-1000">
@@ -13,18 +19,7 @@ export default function ContactPage() {
                     gradient
                 />
 
-                <InfoGrid cols={2}>
-                    <InfoCard
-                        title="Open Source"
-                        description="JsonFlow is open source. Feel free to contribute, report issues, or suggest features on GitHub."
-                        icon={Github}
-                    />
-                    <InfoCard
-                        title="Community Driven"
-                        description="Built by developers, for developers. Your feedback helps make JsonFlow better for everyone."
-                        icon={MessageSquare}
-                    />
-                </InfoGrid>
+                <Features features={features} cols={2} />
 
                 <ContentCard>
                     <div className="space-y-8">

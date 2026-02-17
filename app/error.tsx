@@ -43,7 +43,7 @@ export default function Error({
                     <Button
                         size="lg"
                         onClick={() => reset()}
-                        className="rounded-xl h-14 px-8 font-bold text-lg shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95 bg-primary"
+                        className="rounded-xl h-14 px-8 font-bold shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95 bg-primary"
                     >
                         <div className="flex items-center gap-2">
                             <RefreshCcw className="w-5 h-5" />
@@ -51,7 +51,7 @@ export default function Error({
                         </div>
                     </Button>
 
-                    <Button variant="outline" size="lg" asChild className="rounded-xl h-14 px-8 font-bold text-lg transition-all hover:bg-muted active:scale-95 border-border/50 backdrop-blur-sm">
+                    <Button variant="outline" size="lg" asChild className="rounded-xl h-14 px-8 font-bold transition-all hover:bg-muted active:scale-95 border-border/50 backdrop-blur-sm">
                         <Link href="/" className="flex items-center gap-2">
                             <Home className="w-5 h-5" />
                             Back to JSON Formatter

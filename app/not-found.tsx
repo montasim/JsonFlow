@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { PageLayout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
-import { Home, Search, ArrowLeft, FileJson } from "lucide-react";
+import { Home, ArrowLeft, FileJson } from "lucide-react";
 
 export default function NotFound() {
     return (
@@ -28,14 +28,14 @@ export default function NotFound() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                    <Button asChild size="lg" className="rounded-xl h-14 px-8 font-bold text-lg shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95">
+                    <Button asChild size="lg" className="rounded-xl h-14 px-8 font-bold shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95">
                         <Link href="/" className="flex items-center gap-2">
                             <Home className="w-5 h-5" />
                             Back to JSON Formatter
                         </Link>
                     </Button>
 
-                    <Button variant="outline" size="lg" onClick={() => window.history.back()} className="rounded-xl h-14 px-8 font-bold text-lg transition-all hover:bg-muted active:scale-95 border-border/50 backdrop-blur-sm">
+                    <Button variant="outline" size="lg" onClick={() => window.history.back()} className="rounded-xl h-14 px-8 font-bold transition-all hover:bg-muted active:scale-95 border-border/50 backdrop-blur-sm">
                         <div className="flex items-center gap-2">
                             <ArrowLeft className="w-5 h-5" />
                             Go Back
