@@ -29,7 +29,7 @@ export default function TermsPage() {
                 <ContentCard>
                     <PageSection title="Detailed Information" icon={FileText}>
                         <p>
-                            By accessing and using JSONify, you agree to be bound by these Terms of Service. This ensures a safe and productive environment for all our users.
+                            By accessing and using JsonFlow, you agree to be bound by these Terms of Service. This ensures a safe and productive environment for all our users.
                         </p>
                     </PageSection>
 
@@ -41,7 +41,7 @@ export default function TermsPage() {
 
                     <PageSection title="2. Limitation of Liability">
                         <p>
-                            In no event shall JSONify be liable for any damages arising out of the use or inability to use the materials on our platform, including loss of data or profit. Always verify your JSON data before using it in production environments.
+                            In no event shall JsonFlow be liable for any damages arising out of the use or inability to use the materials on our platform, including loss of data or profit. Always verify your JSON data before using it in production environments.
                         </p>
                     </PageSection>
 
@@ -53,7 +53,7 @@ export default function TermsPage() {
 
                     <PageSection title="4. Acceptable Use">
                         <p>
-                            You agree not to use JSONify to process sensitive, confidential, or personally identifiable information that you do not have the right to share. Although all processing is local, you should exercise caution with sensitive data.
+                            You agree not to use JsonFlow to process sensitive, confidential, or personally identifiable information that you do not have the right to share. Although all processing is local, you should exercise caution with sensitive data.
                         </p>
                     </PageSection>
 

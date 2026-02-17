@@ -214,11 +214,11 @@ export function JsonConverter() {
                 />
                 <FAQItem
                     question="What is the maximum JSON file size supported?"
-                    answer="JSONify can handle JSON files up to 10MB. For optimal performance, we recommend keeping files under 5MB for instant formatting and validation."
+                    answer="JsonFlow can handle JSON files up to 10MB. For optimal performance, we recommend keeping files under 5MB for instant formatting and validation."
                 />
                 <FAQItem
-                    question="Can I use JSONify offline?"
-                    answer="Yes. Once the page is loaded, JSONify works completely offline. All formatting, validation, and conversion features are available without an internet connection."
+                    question="Can I use JsonFlow offline?"
+                    answer="Yes. Once the page is loaded, JsonFlow works completely offline. All formatting, validation, and conversion features are available without an internet connection."
                 />
                 <FAQItem
                     question="What formats can I convert JSON to?"

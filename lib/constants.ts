@@ -10,9 +10,9 @@ export const INDENTATION_OPTIONS = [
 export type IndentationValue = 2 | 4 | 8 | "tab";
 
 export const STORAGE_KEYS = {
-  LAST_INPUT: "jsonify:lastInput",
-  THEME: "jsonify:theme",
-  INDENTATION: "jsonify:indentation",
+  LAST_INPUT: "jsonflow:lastInput",
+  THEME: "jsonflow:theme",
+  INDENTATION: "jsonflow:indentation",
 } as const;
 
 export const MAX_JSON_SIZE = 10 * 1024 * 1024; // 10MB

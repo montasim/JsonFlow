@@ -1,13 +1,13 @@
-# 📄 JSONify - Fast JSON Formatter & Validator
+# 📄 JsonFlow - Fast JSON Formatter & Validator
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-blue?logo=tailwind-css)](https://tailwindcss.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Monaco Editor](https://img.shields.io/badge/Monaco_Editor-blue?logo=visual-studio-code)](https://microsoft.github.io/monaco-editor/)
 
-**JSONify** is a fast, privacy-friendly JSON formatter and validator that runs entirely in your browser. No data is sent to any server - all processing happens locally on your device. Perfect for developers who need to quickly format, validate, minify, or convert JSON data.
+**JsonFlow** is a fast, privacy-friendly JSON formatter and validator that runs entirely in your browser. No data is sent to any server - all processing happens locally on your device. Perfect for developers who need to quickly format, validate, minify, or convert JSON data.
 
-![JSONify Preview](public/preview.png)
+![JsonFlow Preview](public/preview.png)
 
 ## ✨ Features
 
@@ -43,8 +43,8 @@
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/montasim/Jsonify.git
-   cd Jsonify
+   git clone https://github.com/montasim/JsonFlow.git
+   cd JsonFlow
    ```
 
 2. **Install dependencies**:

@@ -1,5 +1,5 @@
 {
-  "name": "jsonify",
+  "name": "jsonflow",
   "version": "0.1.0",
   "description": "Fast, privacy-friendly JSON formatter and validator that runs entirely in the browser",
   "keywords": [

@@ -291,7 +291,7 @@ export function useJsonFormatter(): JsonFormatterState {
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = `jsonify-${Date.now()}.${ext}`;
+        link.download = `jsonflow-${Date.now()}.${ext}`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

@@ -9,19 +9,19 @@ export default function ContactPage() {
             <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-1000">
                 <PageHeader
                     title="Get in Touch"
-                    description="Have questions about JSONify or suggestions for improvement? We'd love to hear from you."
+                    description="Have questions about JsonFlow or suggestions for improvement? We'd love to hear from you."
                     gradient
                 />
 
                 <InfoGrid cols={2}>
                     <InfoCard
                         title="Open Source"
-                        description="JSONify is open source. Feel free to contribute, report issues, or suggest features on GitHub."
+                        description="JsonFlow is open source. Feel free to contribute, report issues, or suggest features on GitHub."
                         icon={Github}
                     />
                     <InfoCard
                         title="Community Driven"
-                        description="Built by developers, for developers. Your feedback helps make JSONify better for everyone."
+                        description="Built by developers, for developers. Your feedback helps make JsonFlow better for everyone."
                         icon={MessageSquare}
                     />
                 </InfoGrid>
@@ -52,12 +52,12 @@ export default function ContactPage() {
                                 <p className="text-muted-foreground">
                                     Report issues or contribute at:{' '}
                                     <a
-                                        href="https://github.com/montasim/Jsonify"
+                                        href="https://github.com/montasim/JsonFlow"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-primary hover:underline"
                                     >
-                                        github.com/montasim/Jsonify
+                                        github.com/montasim/JsonFlow
                                     </a>
                                 </p>
                             </div>
@@ -80,9 +80,9 @@ export default function ContactPage() {
                         <h4 className="font-semibold mb-4 text-sm text-primary uppercase tracking-wider">Quick Links</h4>
                         <div className="flex flex-wrap gap-4">
                             {[
-                                { label: "GitHub Repository", href: "https://github.com/montasim/Jsonify" },
-                                { label: "Report an Issue", href: "https://github.com/montasim/Jsonify/issues" },
-                                { label: "Request a Feature", href: "https://github.com/montasim/Jsonify/discussions" },
+                                { label: "GitHub Repository", href: "https://github.com/montasim/JsonFlow" },
+                                { label: "Report an Issue", href: "https://github.com/montasim/JsonFlow/issues" },
+                                { label: "Request a Feature", href: "https://github.com/montasim/JsonFlow/discussions" },
                             ].map((link) => (
                                 <a
                                     key={link.label}

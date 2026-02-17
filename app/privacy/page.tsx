@@ -29,7 +29,7 @@ export default function PrivacyPage() {
                 <ContentCard>
                     <PageSection title="Detailed Information" icon={Eye}>
                         <p>
-                            At JSONify, we are committed to providing a secure and private environment for all developers. This policy outlines our limited data collection practices.
+                            At JsonFlow, we are committed to providing a secure and private environment for all developers. This policy outlines our limited data collection practices.
                         </p>
                     </PageSection>
 

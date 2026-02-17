@@ -17,7 +17,7 @@ export function Logo({ className, iconSize = "w-10 h-10", textSize = "text-2xl",
             </div>
             {showText && (
                 <span className={cn("font-black tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70", textSize)}>
-                    JSONify
+                    JsonFlow
                 </span>
             )}
         </div>
@@ -45,7 +45,7 @@ export function Header() {
                     </nav>
                     <ModeToggle />
                     <a
-                        href="https://github.com/montasim/Jsonify"
+                        href="https://github.com/montasim/JsonFlow"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2 hover:bg-muted rounded-full transition-colors flex items-center justify-center w-10 h-10"

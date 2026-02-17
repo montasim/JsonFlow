@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "JSONify - Fast JSON Formatter & Validator",
+  title: "JsonFlow - Fast JSON Formatter & Validator",
   description: "Format, validate, minify, and convert JSON data instantly. Free, secure, and private - all processing happens in your browser.",
   icons: {
     icon: "/favicon.ico",
