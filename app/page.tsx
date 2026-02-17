@@ -1,10 +1,10 @@
-import { BranchNameGenerator } from "@/components/branch-name-generator";
+import { JsonConverter } from "@/components/json-converter";
 import { PageLayout } from "@/components/layout";
 
 export default function Home() {
   return (
     <PageLayout>
-      <BranchNameGenerator />
+      <JsonConverter />
     </PageLayout>
   );
 }

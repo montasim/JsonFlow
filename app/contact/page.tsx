@@ -1,173 +1,102 @@
 "use client";
 
-import React, { useState } from "react";
-import { PageLayout, PageHeader, ContentCard } from "@/components/layout";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Mail, MessageSquare, Send, Globe, GitBranch } from "lucide-react";
-import { sendEmail } from "@/lib/actions";
+import { PageLayout, PageHeader, ContentCard, InfoGrid, InfoCard } from "@/components/layout";
+import { Mail, Github, Globe, MessageSquare } from "lucide-react";
 
 export default function ContactPage() {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
-
-    const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-
-        const formData = new FormData(e.currentTarget);
-        const result = await sendEmail(formData);
-
-        setIsSubmitting(false);
-        if (result.success) {
-            setSubmitted(true);
-        } else {
-            alert(result.error || "Something went wrong. Please try again.");
-        }
-    };
-
     return (
         <PageLayout>
-            <div className="max-w-5xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-1000">
                 <PageHeader
                     title="Get in Touch"
-                    description="Have questions about GitNameX or suggestions for improvement? We'd love to hear from you."
+                    description="Have questions about JSONify or suggestions for improvement? We'd love to hear from you."
                     gradient
                 />
 
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-                    <div className="lg:col-span-2">
-                        <ContentCard className="h-full">
-                            <div className="space-y-6">
-                                <div className="flex gap-4">
-                                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
-                                        <Mail className="w-6 h-6 text-primary" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-lg">Email Us</h3>
-                                        <p className="text-muted-foreground">{contactEmail}</p>
-                                    </div>
-                                </div>
+                <InfoGrid cols={2}>
+                    <InfoCard
+                        title="Open Source"
+                        description="JSONify is open source. Feel free to contribute, report issues, or suggest features on GitHub."
+                        icon={Github}
+                    />
+                    <InfoCard
+                        title="Community Driven"
+                        description="Built by developers, for developers. Your feedback helps make JSONify better for everyone."
+                        icon={MessageSquare}
+                    />
+                </InfoGrid>
 
-                                <div className="flex gap-4">
-                                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
-                                        <GitBranch className="w-6 h-6 text-primary" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-lg">Git Support</h3>
-                                        <p className="text-muted-foreground">Questions about branch naming conventions?</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-4">
-                                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
-                                        <Globe className="w-6 h-6 text-primary" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-lg">Global Reach</h3>
-                                        <p className="text-muted-foreground">Trusted by developers worldwide</p>
-                                    </div>
-                                </div>
+                <ContentCard>
+                    <div className="space-y-8">
+                        <div className="flex gap-4">
+                            <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                                <Mail className="w-6 h-6 text-primary" />
                             </div>
-
-                            <div className="pt-8 border-t border-border/50 mt-auto">
-                                <h4 className="font-semibold mb-4 text-sm text-primary uppercase tracking-wider">Social Channels</h4>
-                                <div className="flex flex-wrap gap-4">
-                                    {[
-                                        { label: "LinkedIn", href: "https://www.linkedin.com/in/montasim" },
-                                        { label: "GitHub", href: "https://github.com/montasim" }
-                                    ].map((social) => (
-                                        <a
-                                            key={social.label}
-                                            href={social.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="px-4 py-2 bg-muted hover:bg-primary hover:text-primary-foreground rounded-lg transition-all text-sm font-medium"
-                                        >
-                                            {social.label}
-                                        </a>
-                                    ))}
-                                </div>
+                            <div>
+                                <h3 className="font-semibold text-lg">Email</h3>
+                                <p className="text-muted-foreground">
+                                    For inquiries, reach out at:{' '}
+                                    <a href="mailto:montasimmamun@gmail.com" className="text-primary hover:underline">
+                                        montasimmamun@gmail.com
+                                    </a>
+                                </p>
                             </div>
-                        </ContentCard>
+                        </div>
+
+                        <div className="flex gap-4">
+                            <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                                <Github className="w-6 h-6 text-primary" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-lg">GitHub</h3>
+                                <p className="text-muted-foreground">
+                                    Report issues or contribute at:{' '}
+                                    <a
+                                        href="https://github.com/montasim/Jsonify"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-primary hover:underline"
+                                    >
+                                        github.com/montasim/Jsonify
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-4">
+                            <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                                <Globe className="w-6 h-6 text-primary" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-lg">Global Reach</h3>
+                                <p className="text-muted-foreground">
+                                    Trusted by developers worldwide for fast, private JSON processing.
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="lg:col-span-3">
-                        <ContentCard className="h-full">
-                            {submitted ? (
-                                <div className="flex-1 flex flex-col items-center justify-center text-center space-y-6 animate-in zoom-in duration-500 py-12">
-                                    <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center">
-                                        <Send className="w-10 h-10 text-green-500" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <h2 className="text-3xl font-bold">Message Sent!</h2>
-                                        <p className="text-muted-foreground max-w-sm">
-                                            Thank you for reaching out. Our team will get back to you as soon as possible.
-                                        </p>
-                                    </div>
-                                    <Button
-                                        variant="outline"
-                                        onClick={() => setSubmitted(false)}
-                                        className="rounded-xl px-8"
-                                    >
-                                        Send Another Message
-                                    </Button>
-                                </div>
-                            ) : (
-                                <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col justify-center">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div className="space-y-2">
-                                            <Label htmlFor="name">Full Name</Label>
-                                            <Input id="name" name="name" placeholder="Enter your name" required className="rounded-md bg-background/50 p-5" />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="email">Email Address</Label>
-                                            <Input id="email" name="email" type="email" placeholder="john@example.com" required className="rounded-md bg-background/50 p-5" />
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <Label htmlFor="subject">Subject</Label>
-                                        <Input id="subject" name="subject" placeholder="How can we help?" required className="rounded-md bg-background/50 p-5" />
-                                    </div>
-
-                                    <div className="space-y-2 flex-1">
-                                        <Label htmlFor="message">Message</Label>
-                                        <Textarea
-                                            id="message"
-                                            name="message"
-                                            placeholder="Tell us more about your inquiry..."
-                                            required
-                                            className="rounded-xl bg-background/50 min-h-[150px] p-4"
-                                        />
-                                    </div>
-
-                                    <Button
-                                        type="submit"
-                                        className="w-full h-12 text-lg font-bold rounded-xl shadow-lg shadow-primary/20 transition-all hover:scale-[1.01] active:scale-[0.99]"
-                                        disabled={isSubmitting}
-                                    >
-                                        {isSubmitting ? (
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                                                Sending...
-                                            </div>
-                                        ) : (
-                                            <div className="flex items-center gap-2">
-                                                <Send className="w-5 h-5" />
-                                                Send Message
-                                            </div>
-                                        )}
-                                    </Button>
-                                </form>
-                            )}
-                        </ContentCard>
+                    <div className="pt-8 border-t border-border/50 mt-8">
+                        <h4 className="font-semibold mb-4 text-sm text-primary uppercase tracking-wider">Quick Links</h4>
+                        <div className="flex flex-wrap gap-4">
+                            {[
+                                { label: "GitHub Repository", href: "https://github.com/montasim/Jsonify" },
+                                { label: "Report an Issue", href: "https://github.com/montasim/Jsonify/issues" },
+                                { label: "Request a Feature", href: "https://github.com/montasim/Jsonify/discussions" },
+                            ].map((link) => (
+                                <a
+                                    key={link.label}
+                                    href={link.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-4 py-2 bg-muted hover:bg-primary hover:text-primary-foreground rounded-lg transition-all text-sm font-medium"
+                                >
+                                    {link.label}
+                                </a>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                </ContentCard>
             </div>
         </PageLayout>
     );

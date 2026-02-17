@@ -1,6 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import { Github, GitBranch } from "lucide-react";
+import { Github, Braces } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -13,11 +13,11 @@ export function Logo({ className, iconSize = "w-10 h-10", textSize = "text-2xl",
     return (
         <div className={cn("flex items-center gap-2", className)}>
             <div className={cn("bg-primary rounded-xl flex items-center justify-center shrink-0 shadow-lg shadow-primary/20", iconSize)}>
-                <GitBranch className="w-5 h-5 text-primary-foreground" />
+                <Braces className="w-5 h-5 text-primary-foreground" />
             </div>
             {showText && (
                 <span className={cn("font-black tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70", textSize)}>
-                    GitNameX
+                    JSONify
                 </span>
             )}
         </div>
@@ -29,7 +29,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 export function Header() {
     return (
         <header className="fixed top-0 w-full z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
-            <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+            <div className="container mx-auto px-2 md:px-4 h-20 flex items-center justify-between max-w-[1700px]">
                 <Link href="/" className="group transition-opacity hover:opacity-90">
                     <Logo />
                 </Link>
@@ -45,7 +45,7 @@ export function Header() {
                     </nav>
                     <ModeToggle />
                     <a
-                        href="https://github.com/montasim/caseify-case-converter"
+                        href="https://github.com/montasim/Jsonify"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2 hover:bg-muted rounded-full transition-colors flex items-center justify-center w-10 h-10"
@@ -61,8 +61,8 @@ export function Header() {
 export function Footer() {
     return (
         <footer className="border-t border-border/50 py-12 bg-muted/30">
-            <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="container mx-auto px-2 md:px-4 max-w-[1700px]">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="flex items-center">
                         <Logo iconSize="w-6 h-6" textSize="text-sm" className="opacity-80" />
                         <span className="ml-2 text-sm text-muted-foreground font-medium">
@@ -99,7 +99,7 @@ export function PageLayout({ children }: { children: React.ReactNode }) {
 
             <Header />
             <div className="relative z-10 w-full flex flex-col min-h-screen">
-                <div className="container mx-auto px-4 pt-36 pb-20 flex-grow">
+                <div className="container mx-auto px-2 md:px-4 pt-24 pb-4 flex-grow max-w-[1700px]">
                     {children}
                 </div>
                 <Footer />

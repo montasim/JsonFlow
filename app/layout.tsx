@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GitNameX - Git Branch Name Generator",
-  description: "Fast and simple git branch name generator. Create consistent, properly formatted branch names from your task descriptions instantly. Free, secure, and private.",
+  title: "JSONify - Fast JSON Formatter & Validator",
+  description: "Format, validate, minify, and convert JSON data instantly. Free, secure, and private - all processing happens in your browser.",
   icons: {
     icon: "/favicon.ico",
   },

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { PageLayout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
-import { RefreshCcw, AlertTriangle, Home } from "lucide-react";
+import { RefreshCcw, AlertTriangle, Home, FileJson } from "lucide-react";
 
 export default function Error({
     error,
@@ -27,7 +27,7 @@ export default function Error({
                     </h1>
                     <div className="absolute inset-0 flex items-center justify-center">
                         <div className="w-24 h-24 bg-destructive/10 rounded-full flex items-center justify-center">
-                            <AlertTriangle className="w-12 h-12 text-destructive" />
+                            <FileJson className="w-12 h-12 text-destructive" />
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@ export default function Error({
                 <div className="space-y-4 max-w-lg relative z-10">
                     <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Something went wrong</h2>
                     <p className="text-muted-foreground text-lg">
-                        An unexpected error occurred while generating your branch name. Don&apos;t worry, your code is probably still safe in your repository!
+                        An unexpected error occurred while processing JSON. Don&apos;t worry, your data is safe and never leaves your browser.
                     </p>
                 </div>
 
@@ -54,7 +54,7 @@ export default function Error({
                     <Button variant="outline" size="lg" asChild className="rounded-xl h-14 px-8 font-bold text-lg transition-all hover:bg-muted active:scale-95 border-border/50 backdrop-blur-sm">
                         <Link href="/" className="flex items-center gap-2">
                             <Home className="w-5 h-5" />
-                            Back to Home
+                            Back to JSON Formatter
                         </Link>
                     </Button>
                 </div>

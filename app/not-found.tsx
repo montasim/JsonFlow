@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { PageLayout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
-import { Home, Search, ArrowLeft } from "lucide-react";
+import { Home, Search, ArrowLeft, FileJson } from "lucide-react";
 
 export default function NotFound() {
     return (
@@ -15,15 +15,15 @@ export default function NotFound() {
                     </h1>
                     <div className="absolute inset-0 flex items-center justify-center">
                         <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center animate-pulse">
-                            <Search className="w-12 h-12 text-primary" />
+                            <FileJson className="w-12 h-12 text-primary" />
                         </div>
                     </div>
                 </div>
 
                 <div className="space-y-4 max-w-lg relative z-10">
-                    <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Branch Not Found</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold tracking-tight">JSON Not Found</h2>
                     <p className="text-muted-foreground text-lg">
-                        We couldn&apos;t find the page you&apos;re looking for. It might have been moved, renamed, or pushed to a different branch.
+                        We couldn&apos;t find the page you&apos;re looking for. The URL might be invalid or the page has been moved.
                     </p>
                 </div>
 
@@ -31,7 +31,7 @@ export default function NotFound() {
                     <Button asChild size="lg" className="rounded-xl h-14 px-8 font-bold text-lg shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95">
                         <Link href="/" className="flex items-center gap-2">
                             <Home className="w-5 h-5" />
-                            Back to Home
+                            Back to JSON Formatter
                         </Link>
                     </Button>
 
@@ -47,7 +47,7 @@ export default function NotFound() {
                     <span>Not Found</span>
                     <span>Invalid URL</span>
                     <span>404 Error</span>
-                    <span>Git Lost</span>
+                    <span>Missing Page</span>
                 </div>
             </div>
         </PageLayout>

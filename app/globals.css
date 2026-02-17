@@ -131,6 +131,21 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Remove Monaco Editor focus border */
+  .monaco-editor {
+    outline: none !important;
+    border: none !important;
+  }
+
+  .monaco-editor .margin {
+    border-right: none !important;
+  }
+
+  .monaco-editor .inputarea.ime-input {
+    border: none !important;
+    outline: none !important;
+  }
 }
 
 @keyframes blob {
