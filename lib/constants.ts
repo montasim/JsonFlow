@@ -23,3 +23,10 @@ export const KEYBOARD_SHORTCUTS = {
   COPY: "Ctrl+C",
   DOWNLOAD: "Ctrl+S",
 } as const;
+
+export const COMPARE_SHORTCUTS = {
+  COMPARE: "Ctrl+Enter",
+  FORMAT_LEFT: "Ctrl+Shift+L",
+  FORMAT_RIGHT: "Ctrl+Shift+R",
+  CLEAR_ALL: "Ctrl+Shift+X",
+} as const;

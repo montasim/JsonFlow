@@ -9,7 +9,7 @@ import { PageHeader } from "@/components/layout";
 import { KeyboardShortcuts } from "@/components/keyboard-shortcuts";
 import { Features } from "@/components/features";
 import { FAQs } from "@/components/faqs";
-import { KEYBOARD_SHORTCUTS } from "@/lib/constants";
+import { KEYBOARD_SHORTCUTS, COMPARE_SHORTCUTS } from "@/lib/constants";
 import {
   getDiffTypeColor,
   getDiffTypeLabel,
@@ -559,10 +559,10 @@ function SummaryCard({
 }
 
 const shortcuts = [
-  { action: "Compare", shortcut: "Ctrl+Enter" },
-  { action: "Format Left", shortcut: "Ctrl+Shift+L" },
-  { action: "Format Right", shortcut: "Ctrl+Shift+R" },
-  { action: "Clear All", shortcut: "Ctrl+Shift+X" },
+  { action: "Compare", shortcut: COMPARE_SHORTCUTS.COMPARE },
+  { action: "Format Left", shortcut: COMPARE_SHORTCUTS.FORMAT_LEFT },
+  { action: "Format Right", shortcut: COMPARE_SHORTCUTS.FORMAT_RIGHT },
+  { action: "Clear All", shortcut: COMPARE_SHORTCUTS.CLEAR_ALL },
 ];
 
 const features = [
