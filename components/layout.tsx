@@ -168,11 +168,15 @@ export function InfoCard({
     centered?: boolean;
 }) {
     return (
-        <Card className={cn("border-none shadow-xl bg-card/50 backdrop-blur-sm ring-1 ring-border/50 transition-all hover:scale-[1.02]", className)}>
-            <CardContent className={cn("p-8 space-y-4", centered && "text-center")}>
+        <Card className={cn(
+            "group border-none shadow-xl bg-card/50 backdrop-blur-sm ring-1 ring-border/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl overflow-hidden relative",
+            "before:absolute before:inset-0 before:bg-gradient-to-br before:from-primary/10 before:via-primary/5 before:to-transparent before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100",
+            className
+        )}>
+            <CardContent className={cn("p-8 space-y-4 relative z-10", centered && "text-center")}>
                 {Icon && (
                     <div className={cn(
-                        "w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4",
+                        "w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:bg-primary/20",
                         centered && "mx-auto"
                     )}>
                         <Icon className="w-6 h-6 text-primary" />
