@@ -53,7 +53,20 @@
    pnpm install
    ```
 
-3. **Run the development server**:
+3. **Environment Setup**:
+   Copy the `.env.example` file to `.env.local`:
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   Update the variables in `.env.local` if needed:
+   ```env
+   NEXT_PUBLIC_APP_NAME=JsonFlow
+   NEXT_PUBLIC_APP_URL=https://github.com/montasim/JsonFlow
+   NEXT_PUBLIC_CONTACT_EMAIL=montasimmamun@gmail.com
+   ```
+
+4. **Run the development server**:
    ```bash
    pnpm dev
    ```

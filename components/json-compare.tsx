@@ -451,7 +451,7 @@ export function JsonCompare() {
           </div>
 
           {/* Features */}
-          <Features features={features} />
+          <Features title="Features" features={features} />
 
           {/* FAQ Section */}
           <FAQs faqs={faqs} />

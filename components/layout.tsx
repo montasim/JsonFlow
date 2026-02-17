@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Github, Braces } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
+import { config } from "@/lib/config";
 
 export function Logo({ className, iconSize = "w-10 h-10", textSize = "text-2xl", showText = true }: {
     className?: string;
@@ -20,7 +21,7 @@ export function Logo({ className, iconSize = "w-10 h-10", textSize = "text-2xl",
             </div>
             {showText && (
                 <span className={cn("font-black tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70", textSize)}>
-                    JsonFlow
+                    {config.appName}
                 </span>
             )}
         </div>
@@ -57,7 +58,7 @@ export function Header() {
                     </nav>
                     <ModeToggle />
                     <a
-                        href="https://github.com/montasim/JsonFlow"
+                        href={config.appUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2 hover:bg-muted rounded-full transition-colors flex items-center justify-center w-10 h-10"
@@ -111,7 +112,7 @@ export function PageLayout({ children }: { children: React.ReactNode }) {
 
             <Header />
             <div className="relative z-10 w-full flex flex-col min-h-screen">
-                <div className="container mx-auto px-2 md:px-4 pt-24 pb-4 flex-grow max-w-[1700px]">
+                <div className="container mx-auto px-2 md:px-4 py-24 flex-grow max-w-[1700px]">
                     {children}
                 </div>
                 <Footer />
@@ -177,7 +178,7 @@ export function InfoCard({
                         <Icon className="w-6 h-6 text-primary" />
                     </div>
                 )}
-                <h3 className="text-xl font-semibold">{title}</h3>
+                <h3 className="text-xl font-medium">{title}</h3>
                 <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                     {description}
                 </p>
@@ -201,7 +202,7 @@ export function PageSection({
         <section className={cn("space-y-4", className)}>
             <div className="flex items-center gap-3">
                 {Icon && <Icon className="w-5 h-5 text-primary" />}
-                <h2 className="text-xl font-semibold text-foreground">{title}</h2>
+                <h2 className="text-xl font-medium text-foreground">{title}</h2>
             </div>
             <div className="text-muted-foreground leading-relaxed space-y-4">
                 {children}

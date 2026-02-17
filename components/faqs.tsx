@@ -19,7 +19,7 @@ interface FAQsProps {
 
 export function FAQs({ faqs, title = "Frequently Asked Questions" }: FAQsProps) {
   return (
-    <div className="mb-20">
+    <div>
       <h3 className="text-2xl font-semibold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
         {title}
       </h3>

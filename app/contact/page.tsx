@@ -1,8 +1,9 @@
 "use client";
 
-import { PageLayout, PageHeader, ContentCard, InfoGrid, InfoCard } from "@/components/layout";
+import { PageLayout, PageHeader, ContentCard } from "@/components/layout";
 import { Mail, Github, Globe, MessageSquare } from "lucide-react";
 import { Features } from "@/components/features";
+import { config } from "@/lib/config";
 
 export default function ContactPage() {
     const features = [
@@ -31,8 +32,8 @@ export default function ContactPage() {
                                 <h3 className="font-semibold text-lg">Email</h3>
                                 <p className="text-muted-foreground">
                                     For inquiries, reach out at:{' '}
-                                    <a href="mailto:montasimmamun@gmail.com" className="text-primary hover:underline">
-                                        montasimmamun@gmail.com
+                                    <a href={`mailto:${config.contactEmail}`} className="text-primary hover:underline">
+                                        {config.contactEmail}
                                     </a>
                                 </p>
                             </div>
@@ -47,12 +48,12 @@ export default function ContactPage() {
                                 <p className="text-muted-foreground">
                                     Report issues or contribute at:{' '}
                                     <a
-                                        href="https://github.com/montasim/JsonFlow"
+                                        href={config.appUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-primary hover:underline"
                                     >
-                                        github.com/montasim/JsonFlow
+                                        {config.appUrl.replace("https://github.com/", "")}
                                     </a>
                                 </p>
                             </div>
@@ -75,9 +76,9 @@ export default function ContactPage() {
                         <h4 className="font-semibold mb-4 text-sm text-primary uppercase tracking-wider">Quick Links</h4>
                         <div className="flex flex-wrap gap-4">
                             {[
-                                { label: "GitHub Repository", href: "https://github.com/montasim/JsonFlow" },
-                                { label: "Report an Issue", href: "https://github.com/montasim/JsonFlow/issues" },
-                                { label: "Request a Feature", href: "https://github.com/montasim/JsonFlow/discussions" },
+                                { label: "GitHub Repository", href: config.appUrl },
+                                { label: "Report an Issue", href: `${config.appUrl}/issues` },
+                                { label: "Request a Feature", href: `${config.appUrl}/discussions` },
                             ].map((link) => (
                                 <a
                                     key={link.label}

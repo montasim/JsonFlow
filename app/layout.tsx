@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { config } from "@/lib/config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "JsonFlow - Fast JSON Formatter & Validator",
+  title: `${config.appName} - Fast JSON Formatter & Validator`,
   description: "Format, validate, minify, and convert JSON data instantly. Free, secure, and private - all processing happens in your browser.",
   icons: {
     icon: "/favicon.ico",
