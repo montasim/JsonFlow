@@ -9,7 +9,7 @@ interface Feature {
 
 interface FeaturesProps {
   features: Feature[];
-  cols?: number;
+  cols?: 1 | 2 | 3 | 4;
 }
 
 export function Features({ features, cols = 4 }: FeaturesProps) {
