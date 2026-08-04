@@ -1,24 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { JetBrains_Mono, Manrope } from "next/font/google";
 import { config } from "@/lib/config";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetBrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: `${config.appName} - Fast JSON Formatter & Validator`,
   description: "Format, validate, minify, and convert JSON data instantly. Free, secure, and private - all processing happens in your browser.",
-  icons: {
-    icon: "/favicon.ico",
-  },
 };
 
 import { ThemeProvider } from "@/components/theme-provider";
@@ -31,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${manrope.variable} ${jetBrainsMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"

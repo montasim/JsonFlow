@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { PageLayout } from "@/components/layout";
 import { Button } from "@/components/ui/button";
-import { RefreshCcw, AlertTriangle, Home, FileJson } from "lucide-react";
+import { RefreshCcw, Home, FileJson } from "lucide-react";
 
 export default function Error({
     error,

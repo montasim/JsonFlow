@@ -1,0 +1,36 @@
+import { cn } from "@/lib/utils";
+
+export function BrandMark({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 32 32"
+      className={cn("size-8 shrink-0", className)}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="32" height="32" rx="8" fill="#35C9AE" />
+      <path
+        d="M12.2 6.75H10.9C9.55 6.75 8.75 7.56 8.75 8.9V12.2C8.75 13.8 7.88 14.72 6.5 15.02V16.98C7.88 17.28 8.75 18.2 8.75 19.8V23.1C8.75 24.44 9.55 25.25 10.9 25.25H12.2"
+        stroke="#06221D"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M19.8 6.75H21.1C22.45 6.75 23.25 7.56 23.25 8.9V12.2C23.25 13.8 24.12 14.72 25.5 15.02V16.98C24.12 17.28 23.25 18.2 23.25 19.8V23.1C23.25 24.44 22.45 25.25 21.1 25.25H19.8"
+        stroke="#06221D"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12.75 16H19.25M16.75 13.5L19.25 16L16.75 18.5"
+        stroke="#06221D"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}

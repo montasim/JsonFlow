@@ -30,7 +30,7 @@ function convertToXml(obj: unknown, rootName: string, indent = 0): string {
       return `${spaces}<${rootName} />`;
     }
     return obj
-      .map((item, index) => convertToXml(item, rootName, indent))
+      .map((item) => convertToXml(item, rootName, indent))
       .join("\n");
   }
 

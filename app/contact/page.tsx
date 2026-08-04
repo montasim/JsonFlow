@@ -1,13 +1,13 @@
 "use client";
 
 import { PageLayout, PageHeader, ContentCard } from "@/components/layout";
-import { Mail, Github, Globe, MessageSquare } from "lucide-react";
+import { Mail, Github, MessageSquare } from "lucide-react";
 import { Features } from "@/components/features";
 import { config } from "@/lib/config";
 
 export default function ContactPage() {
     const features = [
-        { title: "Open Source", description: "JsonFlow is open source. Feel free to contribute, report issues, or suggest features on GitHub.", icon: Github },
+        { title: "Source Available", description: "Review the implementation, report reproducible issues, or propose focused changes on GitHub. The repository does not currently include an open-source license.", icon: Github },
         { title: "Community Driven", description: "Built by developers, for developers. Your feedback helps make JsonFlow better for everyone.", icon: MessageSquare },
     ];
 
@@ -71,7 +71,6 @@ export default function ContactPage() {
                         <div className="flex flex-wrap gap-4">
                             {[
                                 { label: "Report an Issue", href: `${config.appUrl}/issues` },
-                                { label: "Request a Feature", href: `${config.appUrl}/discussions` },
                             ].map((link) => (
                                 <a
                                     key={link.label}

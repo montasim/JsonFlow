@@ -174,7 +174,12 @@ export interface JsonFormatterState {
 }
 
 export function useJsonFormatter(): JsonFormatterState {
-    const [input, setInput] = useState("");
+    const [input, setInput] = useState(() => {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem(STORAGE_KEYS.LAST_INPUT) ?? "";
+        }
+        return "";
+    });
     const [output, setOutput] = useState("");
     const [indentation, setIndentation] = useState<IndentationValue>(() => {
         if (typeof window !== "undefined") {
@@ -194,17 +199,10 @@ export function useJsonFormatter(): JsonFormatterState {
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            const stored = localStorage.getItem(STORAGE_KEYS.LAST_INPUT);
-            if (stored) {
-                setInput(stored);
-            }
-        }
-    }, []);
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
             if (input.trim()) {
                 localStorage.setItem(STORAGE_KEYS.LAST_INPUT, input);
+            } else {
+                localStorage.removeItem(STORAGE_KEYS.LAST_INPUT);
             }
         }
     }, [input]);
