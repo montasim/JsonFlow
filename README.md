@@ -1,126 +1,130 @@
-# 📄 JsonFlow - Fast JSON Formatter & Validator
+# JsonFlow
 
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-blue?logo=tailwind-css)](https://tailwindcss.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)](https://www.typescriptlang.org/)
-[![Monaco Editor](https://img.shields.io/badge/Monaco_Editor-blue?logo=visual-studio-code)](https://microsoft.github.io/monaco-editor/)
+> Format, validate, inspect, compare, and convert JSON in the browser.
 
-**JsonFlow** is a fast, privacy-friendly JSON formatter and validator that runs entirely in your browser. No data is sent to any server - all processing happens locally on your device. Perfect for developers who need to quickly format, validate, minify, or convert JSON data.
+[![Live app](https://img.shields.io/badge/Live-Netlify-00C7B7?logo=netlify&logoColor=white)](https://jsonflow.netlify.app)
+[![Support on SupportKori](https://img.shields.io/badge/Support-SupportKori-00B8B5)](https://www.supportkori.com/montasim)
 
-![JsonFlow Preview](public/preview.png)
+JsonFlow gives developers a focused workspace for inspecting JSON without a project-specific backend. It combines an editor, formatted output, tree navigation, comparison, file import, and common export formats.
 
-## ✨ Features
+**[Open the live app](https://jsonflow.netlify.app) · [Report an issue](https://github.com/montasim/JsonFlow/issues)**
 
-- **🔀 JSON Compare**: Compare two JSON documents and visualize differences (added, removed, modified, type changes)
-- **📝 Smart JSON Editor**: Monaco Editor with syntax highlighting, line numbers, auto-indentation, and bracket matching
-- **🎨 Format & Beautify**: Pretty-print JSON with configurable indentation (2/4/8 spaces or tabs)
-- **🗜️ Minify**: Compress JSON to single-line format
-- **✅ Real-time Validation**: Instant error detection with line number and error message
-- **📥 Copy & Download**: One-click copy to clipboard or download as `.json`/`.txt` file
-- **🌳 Tree View**: Expandable/collapsible tree view for easy JSON navigation
-- **🔄 Conversion Tools**: Convert JSON to YAML, XML, CSV, or plain text
-- **🔍 Search & Navigate**: Search within JSON, jump to specific lines
-- **🌓 Dark Mode**: Beautiful dark/light theme toggle
-- **📱 Fully Responsive**: Works on desktop, tablet, and mobile
-- **🔒 Privacy First**: Your JSON never leaves your browser
+> **Project status:** The verified Netlify deployment is available for normal use. The repository has no automated tests, CI workflow, or open-source license file.
 
-## 🛠️ Tech Stack
+## Features
 
-- **Core**: [Next.js 15](https://nextjs.org/) (App Router), [React 19](https://react.dev/)
-- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/), [Shadcn UI](https://ui.shadcn.com/)
-- **Editor**: [Monaco Editor](https://microsoft.github.io/monaco-editor/) (same editor as VS Code)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **YAML**: [js-yaml](https://github.com/nodeca/js-yaml)
-- **Infrastructure**: TypeScript for type safety
+- Format and minify JSON with selectable indentation
+- Validation feedback with error line information
+- Monaco-based input and read-only output editors
+- Expandable tree view
+- JSON comparison for added, removed, modified, and type-changed values
+- Conversion to YAML, XML, CSV, and plain text
+- Drag-and-drop JSON import, copy, and download
+- Keyboard shortcuts and light/dark themes
 
-## 🚀 Getting Started
+## Use JsonFlow
+
+1. Open the formatter.
+2. Paste JSON or upload a JSON file.
+3. Format, minify, or select an export format.
+4. Inspect the output in editor or tree view.
+5. Use /compare for a two-document structural comparison.
+
+## Privacy and trust boundary
+
+Formatting, validation, comparison, conversion, copy, and download are implemented in client components. No application API route for JSON submission exists in this repository. Browser extensions, hosting infrastructure, and copied/downloaded files remain outside that boundary.
+
+Do not paste credentials, access tokens, private keys, regulated records, or other sensitive material into tools you have not independently reviewed. A public deployment can still be affected by browser extensions, hosting logs, or future code changes.
+
+## Local development
 
 ### Prerequisites
 
-- Node.js 18+
-- pnpm / npm / yarn
+- Node.js 20.9.0 or newer
+- pnpm
 
-### Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/montasim/JsonFlow.git
-   cd JsonFlow
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   pnpm install
-   ```
-
-3. **Environment Setup**:
-   Copy the `.env.example` file to `.env.local`:
-   ```bash
-   cp .env.example .env.local
-   ```
-
-   Update the variables in `.env.local` if needed:
-   ```env
-   NEXT_PUBLIC_APP_NAME=JsonFlow
-   NEXT_PUBLIC_APP_URL=https://github.com/montasim/JsonFlow
-   NEXT_PUBLIC_CONTACT_EMAIL=montasimmamun@gmail.com
-   ```
-
-4. **Run the development server**:
-   ```bash
-   pnpm dev
-   ```
-
-4. **Open the browser**:
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-## 📂 Project Structure
-
-```text
-├── app/                    # Next.js App Router (Pages & Layouts)
-│   ├── contact/            # Contact page
-│   ├── privacy/            # Privacy policy
-│   ├── terms/              # Terms of service
-│   ├── layout.tsx          # Root layout
-│   ├── page.tsx            # Main JSON formatter page
-│   └── globals.css         # Global styles
-├── components/             # Reusable UI components
-│   ├── ui/                 # shadcn/ui components
-│   ├── json-editor.tsx     # Monaco Editor wrapper
-│   ├── json-tree-view.tsx  # Expandable tree view
-│   ├── json-toolbar.tsx    # Action buttons toolbar
-│   ├── json-settings.tsx   # Indentation settings
-│   ├── json-converter.tsx  # Main component
-│   └── layout.tsx          # App layout components
-├── lib/                    # Logic, helpers, and utilities
-│   ├── hooks.ts            # Custom React hooks
-│   ├── json-utils.ts       # JSON format, minify, validate
-│   ├── json-conversions.ts # JSON to YAML, XML, CSV converters
-│   ├── constants.ts        # Default settings
-│   └── utils.ts            # Utility functions
-└── public/                 # Static assets
+```bash
+git clone https://github.com/montasim/JsonFlow.git
+cd JsonFlow
+pnpm install
+pnpm dev
 ```
 
-## ⌨️ Keyboard Shortcuts
+Open <http://localhost:3000>.
 
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl + Enter` | Format JSON |
-| `Ctrl + Shift + M` | Minify JSON |
-| `Ctrl + C` | Copy to clipboard |
-| `Ctrl + S` | Download JSON |
+## Configuration
 
-## 🔒 Privacy & Security
+The formatter and comparison tools need no environment variables. Optional public metadata values are documented in [`.env.example`](.env.example):
 
-- **No server-side processing**: All JSON formatting happens in your browser
-- **No data storage**: Your JSON is never stored or logged
-- **No tracking**: No analytics or tracking scripts
-- **Open source**: All code is transparent and auditable
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_APP_NAME` | Public product name |
+| `NEXT_PUBLIC_APP_URL` | Canonical public URL |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | Contact address shown by the app |
 
-## 📄 License
+```bash
+cp .env.example .env.local
+```
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Commands
 
----
+| Command | Purpose |
+| --- | --- |
+| `pnpm dev` | Start development |
+| `pnpm build` | Create a production build |
+| `pnpm start` | Serve the production build |
+| `pnpm lint` | Run ESLint |
 
-Built with ❤️ by [r3tr0](https://github.com/r3tr0)
+No test command is currently defined.
+
+## Technology
+
+- Next.js 16 and React 19
+- TypeScript 5
+- Tailwind CSS 4
+- shadcn/ui and Radix UI primitives
+- Monaco Editor and js-yaml
+
+## Project structure
+
+| Path | Purpose |
+| --- | --- |
+| `components/json-converter.tsx` | Formatter workflow |
+| `components/json-compare.tsx` | Two-document comparison |
+| `lib/json-utils.ts` | Parsing, validation, formatting, and minification |
+| `lib/json-conversions.ts` | YAML, XML, CSV, and text conversion |
+| `app/compare/` | Comparison route |
+
+## Deployment
+
+The live application is deployed on Netlify at [https://jsonflow.netlify.app](https://jsonflow.netlify.app). A separate deployment should use the repository's `pnpm build` command and configure only the variables its features require.
+
+## Limitations
+
+- There is no automated test suite or CI workflow.
+- Input size is constrained by browser memory and responsiveness; no performance limit is documented.
+- Generated output should be reviewed before using it in source control or automated systems.
+- CSV conversion necessarily flattens or serializes structures; verify the result for nested data.
+- The repository does not include a dedicated security policy, contribution guide, or code of conduct.
+
+## Contributing
+
+Issues and focused pull requests are welcome. Run `pnpm lint` and `pnpm build` before submitting. Add tests when changing transformation behavior.
+
+## Support and security
+
+Use [GitHub Issues](https://github.com/montasim/JsonFlow/issues) for reproducible bugs and proposals. Never include sensitive input or credentials in a public issue.
+
+No private vulnerability-reporting process is documented. Coordinate with the maintainer through the profile below before public disclosure.
+
+## Funding
+
+Support continued maintenance through [SupportKori](https://www.supportkori.com/montasim). Bug reports, documentation, and code contributions are also valuable.
+
+## Author
+
+Built and maintained by [Montasim](https://github.com/montasim).
+
+## License status
+
+No license file is included. Source visibility does not grant permission to copy, modify, or redistribute this project.
