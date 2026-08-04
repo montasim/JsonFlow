@@ -40,7 +40,7 @@ Do not paste credentials, access tokens, private keys, regulated records, or oth
 
 ### Prerequisites
 
-- Node.js 20 or newer
+- Node.js 20.9.0 or newer
 - pnpm
 
 ```bash
