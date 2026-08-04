@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="JsonFlow V2 focused JSON workspace prototype." />
+    <title>JsonFlow - V2 focused workspace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+    <script>
+      tailwind = { config: { darkMode: "class", theme: { extend: { fontFamily: { sans: ["Manrope", "sans-serif"], mono: ["JetBrains Mono", "monospace"] } } } } };
+      const savedTheme = localStorage.getItem("jsonflow-v2-theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.classList.toggle("dark", savedTheme ? savedTheme === "dark" : prefersDark);
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="h-[100dvh] overflow-hidden bg-[#F3F5F7] font-sans text-[#131820] antialiased dark:bg-[#0D1117] dark:text-[#E7EBF0]">
+    <div id="toast" role="status" aria-live="polite" class="pointer-events-none fixed bottom-20 left-1/2 z-50 hidden -translate-x-1/2 rounded-lg bg-[#131820] px-4 py-2.5 text-sm font-semibold text-white shadow-xl dark:bg-[#E7EBF0] dark:text-[#131820] lg:bottom-5"></div>
+
+    <div class="flex h-full min-h-0">
+      <aside class="hidden w-[228px] shrink-0 flex-col border-r border-[#D9DEE5] bg-white dark:border-[#29313B] dark:bg-[#121820] lg:flex">
+        <div class="flex h-16 items-center gap-2.5 border-b border-[#E3E7EC] px-5 dark:border-[#29313B]">
+          <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-[#087F72] text-lg text-white"><i class="ph ph-brackets-curly" aria-hidden="true"></i></span>
+          <span class="text-[17px] font-extrabold tracking-[-0.035em]">JsonFlow</span>
+        </div>
+
+        <div class="flex flex-1 flex-col p-3">
+          <nav aria-label="Tools">
+            <p class="px-3 pb-2 pt-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[#8A94A2] dark:text-[#718092]">Workspace</p>
+            <button type="button" class="flex w-full items-center gap-3 rounded-lg bg-[#E7F4F2] px-3 py-2.5 text-left text-sm font-bold text-[#075F56] dark:bg-[#173833] dark:text-[#75D4C5]"><i class="ph ph-magic-wand text-lg" aria-hidden="true"></i><span>Format JSON</span></button>
+          </nav>
+
+          <div class="mt-6 border-t border-[#E3E7EC] pt-5 dark:border-[#29313B]">
+            <label for="indentation" class="mb-2 block px-1 text-xs font-bold text-[#596574] dark:text-[#9AA7B7]">Indentation</label>
+            <select id="indentation" class="h-10 w-full rounded-lg border border-[#CCD3DC] bg-white px-3 text-sm font-semibold outline-none focus:border-[#087F72] focus:ring-2 focus:ring-[#087F72]/20 dark:border-[#374250] dark:bg-[#18202A] dark:text-[#E1E6EC]">
+              <option value="2">2 spaces</option><option value="4">4 spaces</option><option value="tab">Tab</option>
+            </select>
+          </div>
+
+          <div class="mt-auto space-y-1">
+            <p class="mb-3 flex items-center gap-2 rounded-lg bg-[#F3F5F7] px-3 py-2.5 text-xs font-medium leading-5 text-[#667281] dark:bg-[#18202A] dark:text-[#91A0B1]"><i class="ph ph-shield-check shrink-0 text-base text-[#087F72] dark:text-[#68CABB]" aria-hidden="true"></i><span>Files stay in this browser</span></p>
+            <button id="shortcuts-button" type="button" class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold text-[#596574] hover:bg-[#F0F2F5] hover:text-[#131820] focus:outline-none focus:ring-2 focus:ring-[#087F72] dark:text-[#9AA7B7] dark:hover:bg-[#1B2430] dark:hover:text-white"><i class="ph ph-keyboard text-lg" aria-hidden="true"></i><span>Shortcuts</span></button>
+            <a href="https://github.com/montasim/JsonFlow" target="_blank" rel="noreferrer" class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold text-[#596574] hover:bg-[#F0F2F5] hover:text-[#131820] focus:outline-none focus:ring-2 focus:ring-[#087F72] dark:text-[#9AA7B7] dark:hover:bg-[#1B2430] dark:hover:text-white"><i class="ph ph-github-logo text-lg" aria-hidden="true"></i><span>GitHub</span></a>
+            <button id="theme-toggle" type="button" class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold text-[#596574] hover:bg-[#F0F2F5] hover:text-[#131820] focus:outline-none focus:ring-2 focus:ring-[#087F72] dark:text-[#9AA7B7] dark:hover:bg-[#1B2430] dark:hover:text-white"><i id="theme-icon" class="ph ph-moon text-lg" aria-hidden="true"></i><span id="theme-label">Dark mode</span></button>
+          </div>
+        </div>
+      </aside>
+
+      <div class="flex min-w-0 flex-1 flex-col">
+        <header class="flex h-16 shrink-0 items-center justify-between border-b border-[#D9DEE5] bg-white px-4 dark:border-[#29313B] dark:bg-[#121820] lg:hidden">
+          <div class="flex items-center gap-2.5"><span class="flex h-8 w-8 items-center justify-center rounded-lg bg-[#087F72] text-lg text-white"><i class="ph ph-brackets-curly" aria-hidden="true"></i></span><span class="font-extrabold tracking-[-0.035em]">JsonFlow</span></div>
+          <div class="flex items-center gap-1"><button id="mobile-shortcuts" aria-label="Keyboard shortcuts" class="flex h-9 w-9 items-center justify-center rounded-lg text-lg text-[#596574] hover:bg-[#F0F2F5] dark:text-[#9AA7B7] dark:hover:bg-[#1B2430]"><i class="ph ph-keyboard" aria-hidden="true"></i></button><button id="mobile-theme" aria-label="Switch color theme" class="flex h-9 w-9 items-center justify-center rounded-lg text-lg text-[#596574] hover:bg-[#F0F2F5] dark:text-[#9AA7B7] dark:hover:bg-[#1B2430]"><i id="mobile-theme-icon" class="ph ph-moon" aria-hidden="true"></i></button></div>
+        </header>
+
+        <main class="flex min-h-0 flex-1">
+          <section id="input-panel" class="flex min-w-0 flex-1 flex-col bg-white dark:bg-[#10161E]">
+            <div class="flex min-h-20 shrink-0 flex-col justify-center gap-3 border-b border-[#E3E7EC] px-4 py-3 dark:border-[#29313B] sm:flex-row sm:items-center sm:justify-between sm:px-6">
+              <div><div class="flex items-center gap-2"><h1 class="text-lg font-extrabold tracking-[-0.025em] sm:text-xl">JSON input</h1><span id="validation-badge" class="inline-flex items-center gap-1.5 rounded-md bg-[#EEF1F4] px-2 py-1 text-[11px] font-bold text-[#667281] dark:bg-[#1C2530] dark:text-[#9AA7B7]"><i id="validation-icon" class="ph ph-circle" aria-hidden="true"></i><span id="validation-text">Empty</span></span></div><p class="mt-1 hidden text-xs text-[#7B8795] dark:text-[#8290A1] sm:block">Paste data, open a file, or load an example.</p></div>
+              <div class="flex flex-wrap items-center gap-1.5">
+                <button id="paste-button" class="flex h-9 items-center gap-1.5 rounded-lg px-2.5 text-xs font-bold text-[#596574] hover:bg-[#F0F2F5] dark:text-[#9AA7B7] dark:hover:bg-[#1B2430]"><i class="ph ph-clipboard-text" aria-hidden="true"></i><span>Paste</span></button>
+                <button id="sample-button" class="flex h-9 items-center gap-1.5 rounded-lg px-2.5 text-xs font-bold text-[#596574] hover:bg-[#F0F2F5] dark:text-[#9AA7B7] dark:hover:bg-[#1B2430]"><i class="ph ph-brackets-curly" aria-hidden="true"></i><span>Example</span></button>
+                <button id="open-file" class="flex h-9 items-center gap-1.5 rounded-lg border border-[#CCD3DC] bg-white px-3 text-xs font-bold text-[#3F4A58] hover:bg-[#F3F5F7] dark:border-[#374250] dark:bg-[#18202A] dark:text-[#D6DDE5] dark:hover:bg-[#202A36]"><i class="ph ph-folder-open" aria-hidden="true"></i><span>Open file</span></button>
+                <input id="file-input" type="file" accept=".json,application/json" class="hidden" />
+              </div>
+            </div>
+
+            <div id="error-message" role="alert" class="hidden shrink-0 border-b border-[#EFB7B2] bg-[#FFF1F0] px-5 py-2.5 text-sm font-semibold text-[#A3362D] dark:border-[#693D39] dark:bg-[#2D1E20] dark:text-[#FFB5AE]"></div>
+
+            <div class="grid min-h-0 flex-1 grid-cols-[52px_1fr] overflow-hidden bg-[#FCFDFE] font-mono text-[13px] leading-6 dark:bg-[#0E141B] sm:text-sm">
+              <div id="input-lines" aria-hidden="true" class="select-none overflow-hidden border-r border-[#E3E7EC] bg-[#F7F8FA] py-5 pr-3 text-right text-[#A2ABB7] dark:border-[#29313B] dark:bg-[#121820] dark:text-[#526072]">1</div>
+              <label class="sr-only" for="json-input">JSON input</label>
+              <textarea id="json-input" spellcheck="false" class="min-h-full w-full resize-none bg-transparent px-5 py-5 font-mono text-[#26313E] outline-none placeholder:text-[#9AA5B2] focus:bg-[#FAFCFC] dark:text-[#DDE4EB] dark:placeholder:text-[#536173] dark:focus:bg-[#111922]" placeholder='Paste JSON here, for example {"project":"JsonFlow"}'></textarea>
+            </div>
+
+            <div class="flex h-12 shrink-0 items-center justify-between border-t border-[#E3E7EC] bg-white px-4 text-xs text-[#7B8795] dark:border-[#29313B] dark:bg-[#121820] dark:text-[#8290A1] sm:px-6"><span id="input-stats">0 lines, 0 bytes</span><button id="clear-button" class="flex items-center gap-1.5 font-bold hover:text-[#A3362D] dark:hover:text-[#FF9E96]"><i class="ph ph-trash" aria-hidden="true"></i><span>Clear</span></button></div>
+          </section>
+
+          <div class="hidden w-[76px] shrink-0 flex-col items-center justify-center border-x border-[#D9DEE5] bg-[#F3F5F7] dark:border-[#29313B] dark:bg-[#0D1117] lg:flex">
+            <button id="format-button" disabled class="group flex w-14 flex-col items-center gap-2 rounded-xl bg-[#087F72] px-2 py-4 text-xs font-extrabold text-white shadow-[0_8px_22px_rgba(8,127,114,0.25)] hover:bg-[#066D63] active:translate-y-px disabled:cursor-not-allowed disabled:bg-[#A9B5B4] disabled:shadow-none dark:disabled:bg-[#34413F]"><i class="ph ph-arrow-right text-xl transition-transform group-hover:translate-x-0.5" aria-hidden="true"></i><span>Format</span></button>
+            <button id="minify-button" disabled class="mt-3 flex w-14 flex-col items-center gap-1.5 rounded-lg px-2 py-3 text-[11px] font-bold text-[#667281] hover:bg-white hover:text-[#131820] disabled:cursor-not-allowed disabled:opacity-35 dark:text-[#91A0B1] dark:hover:bg-[#18202A] dark:hover:text-white"><i class="ph ph-arrows-in-line-horizontal text-lg" aria-hidden="true"></i><span>Minify</span></button>
+          </div>
+
+          <aside id="result-panel" class="hidden min-w-0 flex-1 flex-col bg-[#F8FAFB] dark:bg-[#0F151C] lg:flex lg:max-w-[620px] lg:basis-[38%]">
+            <div class="flex min-h-20 shrink-0 flex-col justify-center gap-3 border-b border-[#E3E7EC] px-4 py-3 dark:border-[#29313B] sm:flex-row sm:items-center sm:justify-between sm:px-5">
+              <div><div class="flex items-center gap-2"><h2 class="text-lg font-extrabold tracking-[-0.025em] sm:text-xl">Result</h2><span id="output-type" class="rounded-md bg-[#E7F4F2] px-2 py-1 text-[11px] font-bold text-[#075F56] dark:bg-[#173833] dark:text-[#75D4C5]">JSON</span></div><p id="output-stats" class="mt-1 text-xs text-[#7B8795] dark:text-[#8290A1]">No output yet</p></div>
+              <div class="flex items-center gap-1.5"><button id="copy-button" disabled class="flex h-9 items-center gap-1.5 rounded-lg px-2.5 text-xs font-bold text-[#596574] hover:bg-[#E9EDF1] disabled:opacity-35 dark:text-[#9AA7B7] dark:hover:bg-[#1B2430]"><i class="ph ph-copy" aria-hidden="true"></i><span>Copy</span></button><button id="download-button" disabled class="flex h-9 items-center gap-1.5 rounded-lg px-2.5 text-xs font-bold text-[#596574] hover:bg-[#E9EDF1] disabled:opacity-35 dark:text-[#9AA7B7] dark:hover:bg-[#1B2430]"><i class="ph ph-download-simple" aria-hidden="true"></i><span>Save</span></button></div>
+            </div>
+
+            <div class="flex h-12 shrink-0 items-center justify-between border-b border-[#E3E7EC] px-4 dark:border-[#29313B] sm:px-5">
+              <div class="flex items-center gap-1 rounded-lg bg-[#E9EDF1] p-1 dark:bg-[#18202A]"><button id="code-tab" class="flex items-center gap-1.5 rounded-md bg-white px-3 py-1.5 text-xs font-bold shadow-sm dark:bg-[#293543]"><i class="ph ph-code" aria-hidden="true"></i><span>Code</span></button><button id="tree-tab" class="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-bold text-[#667281] dark:text-[#91A0B1]"><i class="ph ph-tree-structure" aria-hidden="true"></i><span>Tree</span></button></div>
+              <label class="sr-only" for="convert-select">Convert result</label><select id="convert-select" disabled class="h-9 rounded-lg border border-[#CCD3DC] bg-white px-2.5 text-xs font-bold text-[#3F4A58] outline-none disabled:opacity-40 dark:border-[#374250] dark:bg-[#18202A] dark:text-[#D6DDE5]"><option value="">Convert</option><option value="yaml">YAML</option><option value="xml">XML</option><option value="csv">CSV</option><option value="text">Plain text</option></select>
+            </div>
+
+            <div id="code-view" class="grid min-h-0 flex-1 grid-cols-[48px_1fr] overflow-hidden font-mono text-[13px] leading-6 sm:text-sm"><div id="output-lines" aria-hidden="true" class="select-none overflow-hidden border-r border-[#E3E7EC] bg-[#F3F5F7] py-5 pr-3 text-right text-[#A2ABB7] dark:border-[#29313B] dark:bg-[#121820] dark:text-[#526072]">1</div><pre id="json-output" tabindex="0" class="overflow-auto whitespace-pre-wrap break-words px-5 py-5 text-[#26313E] outline-none focus:ring-2 focus:ring-inset focus:ring-[#087F72] dark:text-[#DDE4EB]"><span class="text-[#9AA5B2] dark:text-[#536173]">Your formatted result will appear here.</span></pre></div>
+            <div id="tree-view" class="hidden min-h-0 flex-1 overflow-auto p-5 font-mono text-sm"><div id="tree-content" class="space-y-1"></div></div>
+          </aside>
+        </main>
+
+        <div class="grid h-16 shrink-0 grid-cols-[1fr_auto_1fr] items-center border-t border-[#D9DEE5] bg-white px-3 dark:border-[#29313B] dark:bg-[#121820] lg:hidden">
+          <button id="mobile-input" class="justify-self-start rounded-lg bg-[#E7F4F2] px-3 py-2 text-sm font-bold text-[#075F56] dark:bg-[#173833] dark:text-[#75D4C5]">Input</button>
+          <button id="mobile-format-button" disabled class="flex items-center gap-2 rounded-lg bg-[#087F72] px-4 py-2.5 text-sm font-extrabold text-white shadow-[0_6px_18px_rgba(8,127,114,0.24)] disabled:bg-[#A9B5B4] dark:disabled:bg-[#34413F]"><span>Format</span><i class="ph ph-arrow-right" aria-hidden="true"></i></button>
+          <button id="mobile-result" class="justify-self-end rounded-lg px-3 py-2 text-sm font-bold text-[#667281] dark:text-[#91A0B1]">Result</button>
+        </div>
+      </div>
+    </div>
+
+    <dialog id="shortcuts-dialog" class="w-[min(92vw,440px)] rounded-xl border border-[#CCD3DC] bg-white p-0 font-sans text-[#131820] shadow-2xl backdrop:bg-[#131820]/55 dark:border-[#374250] dark:bg-[#18202A] dark:text-[#E7EBF0]"><div class="flex items-center justify-between border-b border-[#E3E7EC] px-5 py-4 dark:border-[#374250]"><h2 class="font-extrabold">Keyboard shortcuts</h2><button id="close-shortcuts" class="rounded-lg px-2 py-1 text-sm font-bold hover:bg-[#F0F2F5] dark:hover:bg-[#25303D]">Close</button></div><dl class="grid grid-cols-[1fr_auto] gap-x-8 gap-y-4 p-5 text-sm"><dt>Format JSON</dt><dd><kbd class="rounded border px-2 py-1 font-mono text-xs dark:border-[#465365]">Ctrl Enter</kbd></dd><dt>Minify JSON</dt><dd><kbd class="rounded border px-2 py-1 font-mono text-xs dark:border-[#465365]">Ctrl Shift M</kbd></dd><dt>Download result</dt><dd><kbd class="rounded border px-2 py-1 font-mono text-xs dark:border-[#465365]">Ctrl S</kbd></dd></dl></dialog>
+
+    <script>
+      (() => {
+        const $ = (id) => document.getElementById(id);
+        const input = $("json-input"), output = $("json-output");
+        const sample = { project: "JsonFlow", private: true, tools: ["format", "validate", "convert"], settings: { indentation: 2 } };
+        let parsed = null, outputText = "", outputFormat = "json", toastTimer;
+
+        function toast(message) { $("toast").textContent = message; $("toast").classList.remove("hidden"); clearTimeout(toastTimer); toastTimer = setTimeout(() => $("toast").classList.add("hidden"), 2200); }
+        function bytes(value) { return new Blob([value]).size; }
+        function escapeHtml(value) { return String(value).replace(/[&<>]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[char]); }
+        function lineNumbers(target, value) { const count = Math.max(1, value.split("\n").length); target.innerHTML = Array.from({ length: count }, (_, i) => `<div>${i + 1}</div>`).join(""); return count; }
+        function highlight(value) { return escapeHtml(value).replace(/("(?:\\u[a-fA-F0-9]{4}|\\[^u]|[^\\"])*"\s*:)|("(?:\\u[a-fA-F0-9]{4}|\\[^u]|[^\\"])*")|\b(true|false)\b|\b(null)\b|(-?\d+(?:\.\d+)?)/g, (match, key, string, bool, nil, number) => key ? `<span class="text-[#2563A8] dark:text-[#78B7FF]">${match}</span>` : string ? `<span class="text-[#087F72] dark:text-[#64D2BF]">${match}</span>` : bool ? `<span class="text-[#A45D13] dark:text-[#F0A35B]">${match}</span>` : nil ? `<span class="text-[#7856A6] dark:text-[#C8A7F2]">${match}</span>` : number ? `<span class="text-[#B33C52] dark:text-[#FF8FA3]">${match}</span>` : match); }
+
+        function setTheme() { const dark = document.documentElement.classList.contains("dark"); $("theme-icon").className = dark ? "ph ph-sun text-lg" : "ph ph-moon text-lg"; $("mobile-theme-icon").className = dark ? "ph ph-sun" : "ph ph-moon"; $("theme-label").textContent = dark ? "Light mode" : "Dark mode"; }
+        function toggleTheme() { const dark = !document.documentElement.classList.contains("dark"); document.documentElement.classList.toggle("dark", dark); localStorage.setItem("jsonflow-v2-theme", dark ? "dark" : "light"); setTheme(); }
+        function setStatus(state, label) { $("validation-text").textContent = label; $("validation-icon").className = state === "valid" ? "ph ph-check-circle" : state === "invalid" ? "ph ph-warning-circle" : "ph ph-circle"; $("validation-badge").className = state === "valid" ? "inline-flex items-center gap-1.5 rounded-md bg-[#E2F4EE] px-2 py-1 text-[11px] font-bold text-[#17684F] dark:bg-[#17382F] dark:text-[#75D4B5]" : state === "invalid" ? "inline-flex items-center gap-1.5 rounded-md bg-[#FFF1F0] px-2 py-1 text-[11px] font-bold text-[#A3362D] dark:bg-[#2D1E20] dark:text-[#FFB5AE]" : "inline-flex items-center gap-1.5 rounded-md bg-[#EEF1F4] px-2 py-1 text-[11px] font-bold text-[#667281] dark:bg-[#1C2530] dark:text-[#9AA7B7]"; }
+
+        function validate() {
+          const raw = input.value.trim(), lines = lineNumbers($("input-lines"), input.value);
+          $("input-stats").textContent = `${input.value ? lines : 0} ${lines === 1 ? "line" : "lines"}, ${bytes(input.value)} bytes`;
+          $("error-message").classList.add("hidden");
+          if (!raw) { parsed = null; setStatus("empty", "Empty"); setEnabled(false); return false; }
+          try { parsed = JSON.parse(raw); setStatus("valid", "Valid"); setEnabled(true); return true; }
+          catch (error) { parsed = null; setStatus("invalid", "Invalid"); setEnabled(false); $("error-message").textContent = error.message; $("error-message").classList.remove("hidden"); return false; }
+        }
+        function setEnabled(enabled) { [$("format-button"), $("mobile-format-button"), $("minify-button"), $("convert-select")].forEach((control) => control.disabled = !enabled); }
+        function indent() { return $("indentation").value === "tab" ? "\t" : Number($("indentation").value); }
+        function setOutput(value, format, label) { outputText = value; outputFormat = format; output.innerHTML = format === "json" ? highlight(value) : escapeHtml(value); lineNumbers($("output-lines"), value); $("output-type").textContent = label; $("output-stats").textContent = `${value.split("\n").length} lines, ${bytes(value)} bytes`; [$("copy-button"), $("download-button")].forEach((button) => button.disabled = false); showMobile("result"); showResultView("code"); }
+        function resetOutput() { outputText = ""; outputFormat = "json"; output.innerHTML = '<span class="text-[#9AA5B2] dark:text-[#536173]">Your formatted result will appear here.</span>'; $("output-lines").textContent = "1"; $("output-type").textContent = "JSON"; $("output-stats").textContent = "No output yet"; [$("copy-button"), $("download-button")].forEach((button) => button.disabled = true); }
+        function format() { if (!validate()) return; setOutput(JSON.stringify(parsed, null, indent()), "json", "JSON"); toast("JSON formatted"); }
+        function minify() { if (!validate()) return; setOutput(JSON.stringify(parsed), "json", "Minified"); toast("JSON minified"); }
+
+        function scalar(value) { if (value === null) return "null"; if (typeof value === "string") return /^[\w.\/-]+$/.test(value) ? value : JSON.stringify(value); return String(value); }
+        function yaml(value, depth = 0) { const pad = "  ".repeat(depth); if (Array.isArray(value)) return value.map((item) => item && typeof item === "object" ? `${pad}-\n${yaml(item, depth + 1)}` : `${pad}- ${scalar(item)}`).join("\n"); if (value && typeof value === "object") return Object.entries(value).map(([key, item]) => item && typeof item === "object" ? `${pad}${key}:\n${yaml(item, depth + 1)}` : `${pad}${key}: ${scalar(item)}`).join("\n"); return `${pad}${scalar(value)}`; }
+        function xml(value, name = "root", depth = 0) { const pad = "  ".repeat(depth), tag = /^[A-Za-z_][\w.-]*$/.test(name) ? name : "item"; if (value === null) return `${pad}<${tag} />`; if (Array.isArray(value)) return value.map((item) => xml(item, "item", depth)).join("\n"); if (typeof value === "object") return `${pad}<${tag}>\n${Object.entries(value).map(([key, item]) => xml(item, key, depth + 1)).join("\n")}\n${pad}</${tag}>`; return `${pad}<${tag}>${escapeHtml(value)}</${tag}>`; }
+        function csvCell(value) { const text = typeof value === "object" && value !== null ? JSON.stringify(value) : String(value ?? ""); return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text; }
+        function csv(value) { if (Array.isArray(value) && value.every((item) => item && typeof item === "object" && !Array.isArray(item))) { const headers = [...new Set(value.flatMap(Object.keys))]; return [headers.join(","), ...value.map((item) => headers.map((key) => csvCell(item[key])).join(","))].join("\n"); } if (value && typeof value === "object" && !Array.isArray(value)) return ["key,value", ...Object.entries(value).map(([key, item]) => `${csvCell(key)},${csvCell(item)}`)].join("\n"); throw new Error("CSV requires an object or an array of objects."); }
+        function plain(value, depth = 0) { const pad = "  ".repeat(depth); if (Array.isArray(value)) return value.map((item, i) => `${pad}[${i}]${item && typeof item === "object" ? `\n${plain(item, depth + 1)}` : ` ${item}`}`).join("\n"); if (value && typeof value === "object") return Object.entries(value).map(([key, item]) => `${pad}${key}:${item && typeof item === "object" ? `\n${plain(item, depth + 1)}` : ` ${item}`}`).join("\n"); return `${pad}${value}`; }
+        function convert(type) { if (!validate() || !type) return; try { if (type === "yaml") setOutput(yaml(parsed), "yaml", "YAML"); if (type === "xml") setOutput(xml(parsed), "xml", "XML"); if (type === "csv") setOutput(csv(parsed), "csv", "CSV"); if (type === "text") setOutput(plain(parsed), "txt", "Text"); toast(`Converted to ${$("output-type").textContent}`); } catch (error) { toast(error.message); } $("convert-select").value = ""; }
+
+        function treeNode(value, label = "root") { const el = document.createElement(value && typeof value === "object" ? "details" : "div"); el.className = "ml-3 border-l border-[#D9DEE5] pl-3 dark:border-[#374250]"; if (value && typeof value === "object") { el.open = true; const summary = document.createElement("summary"); summary.className = "cursor-pointer rounded px-2 py-1 text-[#087F72] hover:bg-[#E7F4F2] dark:text-[#64D2BF] dark:hover:bg-[#173833]"; summary.textContent = `${label} ${Array.isArray(value) ? `[${value.length}]` : `{${Object.keys(value).length}}`}`; el.append(summary); Object.entries(value).forEach(([key, item]) => el.append(treeNode(item, key))); } else { el.className += " py-1"; const key = document.createElement("span"); key.className = "text-[#2563A8] dark:text-[#78B7FF]"; key.textContent = `${label}: `; const text = document.createElement("span"); text.textContent = typeof value === "string" ? `"${value}"` : String(value); text.className = typeof value === "string" ? "text-[#087F72] dark:text-[#64D2BF]" : "text-[#A45D13] dark:text-[#F0A35B]"; el.append(key, text); } return el; }
+        function showResultView(view) { const tree = view === "tree"; if (tree && !validate()) return; $("code-view").classList.toggle("hidden", tree); $("tree-view").classList.toggle("hidden", !tree); if (tree) $("tree-content").replaceChildren(treeNode(parsed)); [["code-tab", !tree], ["tree-tab", tree]].forEach(([id, active]) => { $(id).classList.toggle("bg-white", active); $(id).classList.toggle("shadow-sm", active); $(id).classList.toggle("dark:bg-[#293543]", active); }); }
+        function showMobile(panel) { const result = panel === "result"; if (window.innerWidth < 1024) { $("input-panel").classList.toggle("hidden", result); $("result-panel").classList.toggle("hidden", !result); $("result-panel").classList.toggle("flex", result); } $("mobile-input").className = result ? "justify-self-start rounded-lg px-3 py-2 text-sm font-bold text-[#667281] dark:text-[#91A0B1]" : "justify-self-start rounded-lg bg-[#E7F4F2] px-3 py-2 text-sm font-bold text-[#075F56] dark:bg-[#173833] dark:text-[#75D4C5]"; $("mobile-result").className = result ? "justify-self-end rounded-lg bg-[#E7F4F2] px-3 py-2 text-sm font-bold text-[#075F56] dark:bg-[#173833] dark:text-[#75D4C5]" : "justify-self-end rounded-lg px-3 py-2 text-sm font-bold text-[#667281] dark:text-[#91A0B1]"; }
+        async function loadFile(file) { if (!file) return; if (!file.name.toLowerCase().endsWith(".json")) return toast("Choose a .json file"); input.value = await file.text(); validate(); resetOutput(); toast(`${file.name} opened`); }
+
+        $("theme-toggle").addEventListener("click", toggleTheme); $("mobile-theme").addEventListener("click", toggleTheme);
+        $("shortcuts-button").addEventListener("click", () => $("shortcuts-dialog").showModal()); $("mobile-shortcuts").addEventListener("click", () => $("shortcuts-dialog").showModal()); $("close-shortcuts").addEventListener("click", () => $("shortcuts-dialog").close());
+        input.addEventListener("input", () => { validate(); resetOutput(); }); input.addEventListener("scroll", () => $("input-lines").scrollTop = input.scrollTop);
+        $("format-button").addEventListener("click", format); $("mobile-format-button").addEventListener("click", format); $("minify-button").addEventListener("click", minify);
+        $("clear-button").addEventListener("click", () => { input.value = ""; validate(); resetOutput(); input.focus(); }); $("sample-button").addEventListener("click", () => { input.value = JSON.stringify(sample, null, 2); validate(); resetOutput(); input.focus(); });
+        $("paste-button").addEventListener("click", async () => { try { input.value = await navigator.clipboard.readText(); validate(); resetOutput(); input.focus(); } catch { toast("Clipboard access blocked. Use Ctrl V in the editor."); input.focus(); } });
+        $("open-file").addEventListener("click", () => $("file-input").click()); $("file-input").addEventListener("change", (event) => loadFile(event.target.files[0])); $("input-panel").addEventListener("dragover", (event) => event.preventDefault()); $("input-panel").addEventListener("drop", (event) => { event.preventDefault(); loadFile(event.dataTransfer.files[0]); });
+        $("copy-button").addEventListener("click", async () => { if (!outputText) return; try { await navigator.clipboard.writeText(outputText); toast("Result copied"); } catch { toast("Copy was blocked"); } });
+        $("download-button").addEventListener("click", () => { if (!outputText) return; const url = URL.createObjectURL(new Blob([outputText], { type: "text/plain" })); const link = document.createElement("a"); link.href = url; link.download = `jsonflow-result.${outputFormat}`; link.click(); URL.revokeObjectURL(url); toast("Download started"); });
+        $("convert-select").addEventListener("change", (event) => convert(event.target.value)); $("code-tab").addEventListener("click", () => showResultView("code")); $("tree-tab").addEventListener("click", () => showResultView("tree")); $("mobile-input").addEventListener("click", () => showMobile("input")); $("mobile-result").addEventListener("click", () => showMobile("result"));
+        $("indentation").addEventListener("change", () => { if (outputText && outputFormat === "json") format(); });
+        document.addEventListener("keydown", (event) => { if ((event.ctrlKey || event.metaKey) && event.key === "Enter") { event.preventDefault(); format(); } if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key.toLowerCase() === "m") { event.preventDefault(); minify(); } if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") { event.preventDefault(); $("download-button").click(); } });
+        setTheme(); validate(); resetOutput(); showMobile("input");
+      })();
+    </script>
+  </body>
+</html>
